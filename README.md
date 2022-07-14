@@ -11,6 +11,8 @@ Download your training data into the data folder. You might need to convert the 
 <br />
 You might need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
+The full cheap/expensive dataset with the solvent descriptors is [here](https://drive.google.com/file/d/1S48i4CUo84n3CS0taC36x8dvHhQvjNT0/view?usp=sharing)
+
 ## Train and Test
 
 You can train your own model by the scripts provided below.
