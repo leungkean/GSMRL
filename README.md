@@ -3,7 +3,12 @@
 
 ### Prerequisites
 
-The code requires `python3.7` or before to run. For the required python packages, refer to `requirements.txt`.
+The code requires `python3.7` to run. For the required python packages, refer to `requirements.txt`.
+
+**IMPORTANT:** Ensure that you have `cudatoolkit=10.0` installed.
+```
+conda install -c anaconda cudatoolkit=10.0
+```
 
 ### Download data and data preprocess
 
@@ -30,3 +35,18 @@ python scripts/train_model.py --cfg_file=./exp/cube/params.json
 ``` bash
 python scripts/train_agent.py --cfg_file=./exp/ppo/params.json
 ```
+
+### Solvent
+
+- Train the ACflow model
+
+``` bash
+python scripts/train_model.py --cfg_file=./exp/solvent/params.json
+```
+
+- Train the PPO Policy
+
+``` bash
+python scripts/train_agent.py --cfg_file=./exp/ppo/params.json
+```
+
