@@ -5,6 +5,11 @@
 
 The code requires `python3.7` to run. For the required python packages, refer to `requirements.txt`.
 
+IMPORTANT: Ensure that you have `cudatoolkit=10.0` installed.
+```
+conda install -c anaconda cudatoolkit=10.0
+```
+
 ### Download data and data preprocess
 
 Download your training data into the data folder. You might need to convert the data file into a pickle file. The structure of the data should be a dictionary. The keys are 'train','valid', and 'test' and the values are the corresponding data tuple (x, y).
