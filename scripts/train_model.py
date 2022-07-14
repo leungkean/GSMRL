@@ -99,7 +99,7 @@ def valid():
     validset.initialize(sess)
     for i in range(num_batches):
         x, y, b, m = sess.run([validset.x, validset.y, validset.b, validset.m])
-        feed_dict = {model.x:x, model.y:y, model.b:b, model.m:m}
+        feed_dict = {model.x:x, model.y:np.expand_dims(y, axis=1), model.b:b, model.m:m}
         metric = model.run(model.metric, feed_dict)
         valid_metrics.append(metric)
     valid_metrics = np.concatenate(valid_metrics, axis=0)
@@ -112,7 +112,7 @@ def test():
     testset.initialize(sess)
     for i in range(num_batches):
         x, y, b, m = sess.run([testset.x, testset.y, testset.b, testset.m])
-        feed_dict = {model.x:x, model.y:y, model.b:b, model.m:m}
+        feed_dict = {model.x:x, model.y:np.expand_dims(y, axis=1), model.b:b, model.m:m}
         metric = model.run(model.metric, feed_dict)
         test_metrics.append(metric)
     test_metrics = np.concatenate(test_metrics, axis=0)
