@@ -35,3 +35,18 @@ python scripts/train_model.py --cfg_file=./exp/cube/params.json
 ``` bash
 python scripts/train_agent.py --cfg_file=./exp/ppo/params.json
 ```
+
+### Solvent
+
+- Train the ACflow model
+
+``` bash
+python scripts/train_model.py --cfg_file=./exp/solvent/params.json
+```
+
+- Train the PPO Policy
+
+``` bash
+python scripts/train_agent.py --cfg_file=./exp/ppo/params.json
+```
+
