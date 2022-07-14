@@ -5,7 +5,7 @@
 
 The code requires `python3.7` to run. For the required python packages, refer to `requirements.txt`.
 
-IMPORTANT: Ensure that you have `cudatoolkit=10.0` installed.
+**IMPORTANT:** Ensure that you have `cudatoolkit=10.0` installed.
 ```
 conda install -c anaconda cudatoolkit=10.0
 ```
