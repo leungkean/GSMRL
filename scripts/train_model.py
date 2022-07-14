@@ -82,7 +82,7 @@ def train():
     trainset.initialize(sess)
     for i in range(num_batches):
         x, y, b, m = sess.run([trainset.x, trainset.y, trainset.b, trainset.m])
-        feed_dict = {model.x:x, model.y:y, model.b:b, model.m:m}
+        feed_dict = {model.x:x, model.y:np.expand_dims(y, axis=1), model.b:b, model.m:m}
         metric, summ, step, _ = model.run(
             [model.metric, model.summ_op, model.global_step, model.train_op], 
             feed_dict)
