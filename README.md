@@ -3,7 +3,7 @@
 
 ### Prerequisites
 
-Refer to `requirements.txt`
+The code requires `python3.7` or before to run. Refer to `requirements.txt`.
 
 ### Download data and data preprocess
 
