@@ -82,7 +82,7 @@ def train():
     trainset.initialize(sess)
     for i in range(num_batches):
         x, y, b, m = sess.run([trainset.x, trainset.y, trainset.b, trainset.m])
-        feed_dict = {model.x:x, model.y:np.expand_dims(y, axis=1), model.b:b, model.m:m}
+        feed_dict = {model.x:x, model.y:y, model.b:b, model.m:m}
         metric, summ, step, _ = model.run(
             [model.metric, model.summ_op, model.global_step, model.train_op], 
             feed_dict)
@@ -99,7 +99,7 @@ def valid():
     validset.initialize(sess)
     for i in range(num_batches):
         x, y, b, m = sess.run([validset.x, validset.y, validset.b, validset.m])
-        feed_dict = {model.x:x, model.y:np.expand_dims(y, axis=1), model.b:b, model.m:m}
+        feed_dict = {model.x:x, model.y:y, model.b:b, model.m:m}
         metric = model.run(model.metric, feed_dict)
         valid_metrics.append(metric)
     valid_metrics = np.concatenate(valid_metrics, axis=0)
@@ -112,7 +112,7 @@ def test():
     testset.initialize(sess)
     for i in range(num_batches):
         x, y, b, m = sess.run([testset.x, testset.y, testset.b, testset.m])
-        feed_dict = {model.x:x, model.y:np.expand_dims(y, axis=1), model.b:b, model.m:m}
+        feed_dict = {model.x:x, model.y:y, model.b:b, model.m:m}
         metric = model.run(model.metric, feed_dict)
         test_metrics.append(metric)
     test_metrics = np.concatenate(test_metrics, axis=0)
@@ -126,8 +126,11 @@ best_train_metric = -np.inf
 best_valid_metric = -np.inf
 best_test_metric = -np.inf
 for epoch in range(params.epochs):
+    logging.info(f'epoch {epoch}: train')
     train_metric = train()
+    logging.info(f'epoch {epoch}: valid')
     valid_metric = valid()
+    logging.info(f'epoch {epoch}: test')
     test_metric = test()
     # save
     if train_metric > best_train_metric:
