@@ -47,6 +47,6 @@ python scripts/train_model.py --cfg_file=./exp/solvent/params.json
 - Train the PPO Policy
 
 ``` bash
-python scripts/train_agent.py --cfg_file=./exp/ppo/params.json
+python scripts/train_agent.py --cfg_file=./exp/ppo/params.json --env reg
 ```
 
