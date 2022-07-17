@@ -18,13 +18,13 @@ You might need to change the path for each dataset in `datasets` folder accordin
 
 #### Chemistry Dataset with Cheap/Expensive Features
 
-- `solvent_cheap`:   Dataset with all cheap features and all solvent descriptors.
+- `solvent_cheap`: \t Dataset with all cheap features and all solvent descriptors.
 
-- `solv_desc_cheap`: Dataset with solvent descriptors and the corresponding cheap features.
+- `solv_desc_cheap`: \t Dataset with solvent descriptors and the corresponding cheap features.
 
-- `solvent_HL`:      Dataset with all cheap features, `holu_gap`, and all solvent descriptors.
+- `solvent_HL`: \t Dataset with all cheap features, `holu_gap`, and all solvent descriptors.
 
-- `solv_desc_HL`:    Dataset with solvent descriptors, corresponding cheap features, and `holu_gap`.
+- `solv_desc_HL`: \t Dataset with solvent descriptors, corresponding cheap features, and `holu_gap`.
 
 In datasets that include the HOMO-LUMO gap feature (`holu_gap`), I have explicitly included a `cost`.
 
