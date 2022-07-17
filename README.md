@@ -16,7 +16,19 @@ Download your training data into the data folder. You might need to convert the 
 <br />
 You might need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
-The full cheap/expensive dataset with the solvent descriptors is [here](https://drive.google.com/file/d/1S48i4CUo84n3CS0taC36x8dvHhQvjNT0/view?usp=sharing)
+#### Chemistry Dataset with Cheap/Expensive Features
+
+- `solvent_cheap`: Dataset with all cheap features and all solvent descriptors.
+
+- `solv_desc_cheap`: Dataset with solvent descriptors and the corresponding cheap features.
+
+- `solvent_HL`: Dataset with all cheap features, `holu_gap`, and all solvent descriptors.
+
+- `solv_desc_HL`: Dataset with solvent descriptors, corresponding cheap features, and `holu_gap`.
+
+In datasets that include the HOMO-LUMO gap feature (`holu_gap`), I have explicitly included a `cost`.
+
+The acquisition cost of the `holu_gap` feature will be around 20X that of the cheap feature.
 
 ## Train and Test
 
