@@ -46,7 +46,6 @@ python scripts/train_model.py --cfg_file=./exp/cube/params.json
 ```
 
 - Train the PPO Policy
-
 ``` bash
 python scripts/train_agent.py --cfg_file=./exp/ppo/params.json
 ```
@@ -55,13 +54,18 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/params.json
 
 - Train the ACflow model
 
-``` bash
-python scripts/train_model.py --cfg_file=./exp/solvent/params.json
-```
+To train the ACflow model for both `solvent` and `solv_desc` datasets just change the directory to the corresponding dataset.
 
 - Train the PPO Policy
 
-``` bash
-python scripts/train_agent.py --cfg_file=./exp/ppo/params.json --env reg
+Modify the entries
 ```
+"dfile": "./data/solv_desc.pkl"
+```
+and
+```
+"model_dir": "./exp/solv_desc"
+```
+for the dataset currently in use.
+
 
