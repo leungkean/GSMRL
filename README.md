@@ -58,6 +58,8 @@ To train the ACflow model for both `solvent` and `solv_desc` datasets just chang
 
 - Train the PPO Policy
 
+**Important:** Add `--env reg` flag.
+
 Modify the entries in the `params.json` configuration file in `exp/ppo` directory 
 ```
 "dfile": "./data/solv_desc.pkl"
