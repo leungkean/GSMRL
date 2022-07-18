@@ -11653,3 +11653,386 @@ The TensorFlow Distributions library has moved to TensorFlow Probability (https:
 2022-07-18 10:54:35,451 reward_policy: -3539.115234375
 2022-07-18 10:54:36,165 [FINAL] episodes: 2000, Max reward: -107.69769287109375, Average reward: -2047.006591796875
 2022-07-18 10:54:36,774 Restoring parameters from ./exp/ppo/weights/best.ckpt
+2022-07-18 11:08:32,928 action frequency:
+2022-07-18 11:08:32,930 {0: 720.0,
+ 1: 720.0,
+ 2: 720.0,
+ 3: 720.0,
+ 4: 720.0,
+ 5: 720.0,
+ 6: 720.0,
+ 7: 0.0,
+ 8: 720.0,
+ 9: 720.0,
+ 10: 720.0,
+ 11: 720.0,
+ 12: 720.0,
+ 13: 720.0,
+ 14: 720.0,
+ 15: 720.0,
+ 16: 720.0,
+ 17: 720.0,
+ 18: 720.0,
+ 19: 0.0,
+ 20: 720.0,
+ 21: 720.0,
+ 22: 720.0,
+ 23: 720.0,
+ 24: 720.0,
+ 25: 720.0,
+ 26: 720.0,
+ 27: 720.0,
+ 28: 720.0,
+ 29: 720.0,
+ 30: 720.0,
+ 31: 720.0,
+ 32: 720.0,
+ 33: 12.0,
+ 34: 720.0,
+ 35: 720.0,
+ 36: 720.0,
+ 37: 720.0,
+ 38: 720.0,
+ 39: 720.0,
+ 40: 720.0,
+ 41: 720.0,
+ 42: 720.0}
+2022-07-18 11:08:32,930 example transitions:
+2022-07-18 11:08:32,930 [ 6 25 17  3 27  2 11  0 38 39  5 31 24 15 16 34 37  7  4  0 26 32 19 10
+ 13 20  8 29 30 36 40 14 33  0 23 21 28 35 22  9 18 41 12]
+2022-07-18 11:08:32,931 [ 6 25 17  3 27  2 11  0 38 39  5 31 24 15 16 34 37  7  4  0 26 32 19 10
+ 13 20  8 29 30 36 40 14 33  0 23 21 28 35 22  9 18 41 12]
+2022-07-18 11:08:32,931 [ 6 25 17  3 27  2 11  0 38 39  5 34 24 15 16 33 37  7  4  0 26 31 19 10
+ 13 20  8 29 30 36 40 14 32  0 23 21 28 35 22  9 18 41 12]
+2022-07-18 11:08:32,931 [ 6 25 17  3 27  2 11  0 38 39  5 31 24 15 16 34 37  7  4  0 26 32 19 10
+ 13 20  8 29 30 36 40 14 33  0 23 21 28 35 22  9 18 41 12]
+2022-07-18 11:08:32,932 [ 6 25 17  3 27  2 11  0 38 39  5 31 24 15 16 34 37  7  4  0 26 32 19 10
+ 13 20  8 29 30 36 40 14 33  0 23 21 28 35 22  9 18 41 12]
+2022-07-18 11:08:32,932 ####################
+2022-07-18 11:08:32,932 evaluate:
+2022-07-18 11:08:32,932 episode_reward: -1938.8135986328125
+2022-07-18 11:08:32,932 num_acquisition: 40.016666412353516
+2022-07-18 11:08:32,932 mse_acflow: 2565.362060546875
+2022-07-18 11:08:32,932 mse_policy: 3495.99267578125
+2022-07-18 11:08:32,932 reward_acflow: -2566.292724609375
+2022-07-18 11:08:32,932 reward_policy: -3496.92333984375
+2022-07-18 11:10:25,083 restore from ./exp/solv_desc_HL/weights/params.ckpt
+2022-07-18 11:10:25,084 Restoring parameters from ./exp/solv_desc_HL/weights/params.ckpt
+2022-07-18 11:10:48,093 Variables in scope 'embedding':
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/inds_0:0' shape=(1, 16, 64) dtype=float32_ref>
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/self_attn_0_pre/query/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/self_attn_0_pre/query/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/self_attn_0_pre/key/kernel:0' shape=(51, 64) dtype=float32_ref>
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/self_attn_0_pre/key/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/self_attn_0_pre/value/kernel:0' shape=(51, 64) dtype=float32_ref>
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/self_attn_0_pre/value/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/self_attn_0_pre/output/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/self_attn_0_pre/output/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,093 	<tf.Variable 'embedding/set_transformer/self_attn_0_post/query/kernel:0' shape=(51, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/self_attn_0_post/query/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/self_attn_0_post/key/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/self_attn_0_post/key/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/self_attn_0_post/value/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/self_attn_0_post/value/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/self_attn_0_post/output/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/self_attn_0_post/output/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/pool_seed:0' shape=(1, 1, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/pool_attn/query/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/pool_attn/query/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/pool_attn/key/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/pool_attn/key/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/pool_attn/value/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/pool_attn/value/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/pool_attn/output/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/pool_attn/output/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/output/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,094 	<tf.Variable 'embedding/set_transformer/output/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,162 Variables in scope 'actor':
+2022-07-18 11:10:48,162 	<tf.Variable 'actor/actor/actor_l0/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,162 	<tf.Variable 'actor/actor/actor_l0/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,162 	<tf.Variable 'actor/actor/actor_l1/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,162 	<tf.Variable 'actor/actor/actor_l1/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,162 	<tf.Variable 'actor/actor/actor_l2/kernel:0' shape=(64, 44) dtype=float32_ref>
+2022-07-18 11:10:48,162 	<tf.Variable 'actor/actor/actor_l2/bias:0' shape=(44,) dtype=float32_ref>
+2022-07-18 11:10:48,205 Variables in scope 'predictor':
+2022-07-18 11:10:48,205 	<tf.Variable 'predictor/predictor/predictor_l0/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,205 	<tf.Variable 'predictor/predictor/predictor_l0/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,205 	<tf.Variable 'predictor/predictor/predictor_l1/kernel:0' shape=(64, 64) dtype=float32_ref>
+2022-07-18 11:10:48,205 	<tf.Variable 'predictor/predictor/predictor_l1/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,205 	<tf.Variable 'predictor/predictor/predictor_l2/kernel:0' shape=(64, 1) dtype=float32_ref>
+2022-07-18 11:10:48,206 	<tf.Variable 'predictor/predictor/predictor_l2/bias:0' shape=(1,) dtype=float32_ref>
+2022-07-18 11:10:48,250 Variables in scope 'critic':
+2022-07-18 11:10:48,250 	<tf.Variable 'critic/critic/critic_l0/kernel:0' shape=(64, 128) dtype=float32_ref>
+2022-07-18 11:10:48,250 	<tf.Variable 'critic/critic/critic_l0/bias:0' shape=(128,) dtype=float32_ref>
+2022-07-18 11:10:48,250 	<tf.Variable 'critic/critic/critic_l1/kernel:0' shape=(128, 64) dtype=float32_ref>
+2022-07-18 11:10:48,250 	<tf.Variable 'critic/critic/critic_l1/bias:0' shape=(64,) dtype=float32_ref>
+2022-07-18 11:10:48,250 	<tf.Variable 'critic/critic/critic_l2/kernel:0' shape=(64, 1) dtype=float32_ref>
+2022-07-18 11:10:48,250 	<tf.Variable 'critic/critic/critic_l2/bias:0' shape=(1,) dtype=float32_ref>
+2022-07-18 11:10:51,119 Summary name vars/actor/actor/actor_l0/kernel:0 is illegal; using vars/actor/actor/actor_l0/kernel_0 instead.
+2022-07-18 11:10:51,120 Summary name vars/actor/actor/actor_l0/bias:0 is illegal; using vars/actor/actor/actor_l0/bias_0 instead.
+2022-07-18 11:10:51,121 Summary name vars/actor/actor/actor_l1/kernel:0 is illegal; using vars/actor/actor/actor_l1/kernel_0 instead.
+2022-07-18 11:10:51,123 Summary name vars/actor/actor/actor_l1/bias:0 is illegal; using vars/actor/actor/actor_l1/bias_0 instead.
+2022-07-18 11:10:51,124 Summary name vars/actor/actor/actor_l2/kernel:0 is illegal; using vars/actor/actor/actor_l2/kernel_0 instead.
+2022-07-18 11:10:51,125 Summary name vars/actor/actor/actor_l2/bias:0 is illegal; using vars/actor/actor/actor_l2/bias_0 instead.
+2022-07-18 11:10:51,127 Summary name vars/embedding/set_transformer/inds_0:0 is illegal; using vars/embedding/set_transformer/inds_0_0 instead.
+2022-07-18 11:10:51,128 Summary name vars/embedding/set_transformer/self_attn_0_pre/query/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/query/kernel_0 instead.
+2022-07-18 11:10:51,129 Summary name vars/embedding/set_transformer/self_attn_0_pre/query/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/query/bias_0 instead.
+2022-07-18 11:10:51,130 Summary name vars/embedding/set_transformer/self_attn_0_pre/key/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/key/kernel_0 instead.
+2022-07-18 11:10:51,132 Summary name vars/embedding/set_transformer/self_attn_0_pre/key/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/key/bias_0 instead.
+2022-07-18 11:10:51,133 Summary name vars/embedding/set_transformer/self_attn_0_pre/value/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/value/kernel_0 instead.
+2022-07-18 11:10:51,134 Summary name vars/embedding/set_transformer/self_attn_0_pre/value/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/value/bias_0 instead.
+2022-07-18 11:10:51,135 Summary name vars/embedding/set_transformer/self_attn_0_pre/output/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/output/kernel_0 instead.
+2022-07-18 11:10:51,136 Summary name vars/embedding/set_transformer/self_attn_0_pre/output/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/output/bias_0 instead.
+2022-07-18 11:10:51,138 Summary name vars/embedding/set_transformer/self_attn_0_post/query/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/query/kernel_0 instead.
+2022-07-18 11:10:51,139 Summary name vars/embedding/set_transformer/self_attn_0_post/query/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/query/bias_0 instead.
+2022-07-18 11:10:51,140 Summary name vars/embedding/set_transformer/self_attn_0_post/key/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/key/kernel_0 instead.
+2022-07-18 11:10:51,142 Summary name vars/embedding/set_transformer/self_attn_0_post/key/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/key/bias_0 instead.
+2022-07-18 11:10:51,143 Summary name vars/embedding/set_transformer/self_attn_0_post/value/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/value/kernel_0 instead.
+2022-07-18 11:10:51,145 Summary name vars/embedding/set_transformer/self_attn_0_post/value/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/value/bias_0 instead.
+2022-07-18 11:10:51,146 Summary name vars/embedding/set_transformer/self_attn_0_post/output/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/output/kernel_0 instead.
+2022-07-18 11:10:51,147 Summary name vars/embedding/set_transformer/self_attn_0_post/output/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/output/bias_0 instead.
+2022-07-18 11:10:51,149 Summary name vars/embedding/set_transformer/pool_seed:0 is illegal; using vars/embedding/set_transformer/pool_seed_0 instead.
+2022-07-18 11:10:51,150 Summary name vars/embedding/set_transformer/pool_attn/query/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/query/kernel_0 instead.
+2022-07-18 11:10:51,151 Summary name vars/embedding/set_transformer/pool_attn/query/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/query/bias_0 instead.
+2022-07-18 11:10:51,152 Summary name vars/embedding/set_transformer/pool_attn/key/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/key/kernel_0 instead.
+2022-07-18 11:10:51,153 Summary name vars/embedding/set_transformer/pool_attn/key/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/key/bias_0 instead.
+2022-07-18 11:10:51,154 Summary name vars/embedding/set_transformer/pool_attn/value/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/value/kernel_0 instead.
+2022-07-18 11:10:51,155 Summary name vars/embedding/set_transformer/pool_attn/value/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/value/bias_0 instead.
+2022-07-18 11:10:51,156 Summary name vars/embedding/set_transformer/pool_attn/output/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/output/kernel_0 instead.
+2022-07-18 11:10:51,157 Summary name vars/embedding/set_transformer/pool_attn/output/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/output/bias_0 instead.
+2022-07-18 11:10:51,158 Summary name vars/embedding/set_transformer/output/kernel:0 is illegal; using vars/embedding/set_transformer/output/kernel_0 instead.
+2022-07-18 11:10:51,159 Summary name vars/embedding/set_transformer/output/bias:0 is illegal; using vars/embedding/set_transformer/output/bias_0 instead.
+2022-07-18 11:10:51,159 Summary name vars/predictor/predictor/predictor_l0/kernel:0 is illegal; using vars/predictor/predictor/predictor_l0/kernel_0 instead.
+2022-07-18 11:10:51,160 Summary name vars/predictor/predictor/predictor_l0/bias:0 is illegal; using vars/predictor/predictor/predictor_l0/bias_0 instead.
+2022-07-18 11:10:51,161 Summary name vars/predictor/predictor/predictor_l1/kernel:0 is illegal; using vars/predictor/predictor/predictor_l1/kernel_0 instead.
+2022-07-18 11:10:51,162 Summary name vars/predictor/predictor/predictor_l1/bias:0 is illegal; using vars/predictor/predictor/predictor_l1/bias_0 instead.
+2022-07-18 11:10:51,163 Summary name vars/predictor/predictor/predictor_l2/kernel:0 is illegal; using vars/predictor/predictor/predictor_l2/kernel_0 instead.
+2022-07-18 11:10:51,164 Summary name vars/predictor/predictor/predictor_l2/bias:0 is illegal; using vars/predictor/predictor/predictor_l2/bias_0 instead.
+2022-07-18 11:10:51,165 Summary name vars/embedding/set_transformer/inds_0:0 is illegal; using vars/embedding/set_transformer/inds_0_0 instead.
+2022-07-18 11:10:51,166 Summary name vars/embedding/set_transformer/self_attn_0_pre/query/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/query/kernel_0 instead.
+2022-07-18 11:10:51,168 Summary name vars/embedding/set_transformer/self_attn_0_pre/query/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/query/bias_0 instead.
+2022-07-18 11:10:51,169 Summary name vars/embedding/set_transformer/self_attn_0_pre/key/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/key/kernel_0 instead.
+2022-07-18 11:10:51,170 Summary name vars/embedding/set_transformer/self_attn_0_pre/key/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/key/bias_0 instead.
+2022-07-18 11:10:51,172 Summary name vars/embedding/set_transformer/self_attn_0_pre/value/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/value/kernel_0 instead.
+2022-07-18 11:10:51,173 Summary name vars/embedding/set_transformer/self_attn_0_pre/value/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/value/bias_0 instead.
+2022-07-18 11:10:51,174 Summary name vars/embedding/set_transformer/self_attn_0_pre/output/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/output/kernel_0 instead.
+2022-07-18 11:10:51,176 Summary name vars/embedding/set_transformer/self_attn_0_pre/output/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/output/bias_0 instead.
+2022-07-18 11:10:51,177 Summary name vars/embedding/set_transformer/self_attn_0_post/query/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/query/kernel_0 instead.
+2022-07-18 11:10:51,178 Summary name vars/embedding/set_transformer/self_attn_0_post/query/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/query/bias_0 instead.
+2022-07-18 11:10:51,180 Summary name vars/embedding/set_transformer/self_attn_0_post/key/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/key/kernel_0 instead.
+2022-07-18 11:10:51,181 Summary name vars/embedding/set_transformer/self_attn_0_post/key/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/key/bias_0 instead.
+2022-07-18 11:10:51,182 Summary name vars/embedding/set_transformer/self_attn_0_post/value/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/value/kernel_0 instead.
+2022-07-18 11:10:51,184 Summary name vars/embedding/set_transformer/self_attn_0_post/value/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/value/bias_0 instead.
+2022-07-18 11:10:51,185 Summary name vars/embedding/set_transformer/self_attn_0_post/output/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/output/kernel_0 instead.
+2022-07-18 11:10:51,186 Summary name vars/embedding/set_transformer/self_attn_0_post/output/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/output/bias_0 instead.
+2022-07-18 11:10:51,188 Summary name vars/embedding/set_transformer/pool_seed:0 is illegal; using vars/embedding/set_transformer/pool_seed_0 instead.
+2022-07-18 11:10:51,189 Summary name vars/embedding/set_transformer/pool_attn/query/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/query/kernel_0 instead.
+2022-07-18 11:10:51,190 Summary name vars/embedding/set_transformer/pool_attn/query/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/query/bias_0 instead.
+2022-07-18 11:10:51,192 Summary name vars/embedding/set_transformer/pool_attn/key/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/key/kernel_0 instead.
+2022-07-18 11:10:51,193 Summary name vars/embedding/set_transformer/pool_attn/key/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/key/bias_0 instead.
+2022-07-18 11:10:51,194 Summary name vars/embedding/set_transformer/pool_attn/value/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/value/kernel_0 instead.
+2022-07-18 11:10:51,196 Summary name vars/embedding/set_transformer/pool_attn/value/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/value/bias_0 instead.
+2022-07-18 11:10:51,197 Summary name vars/embedding/set_transformer/pool_attn/output/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/output/kernel_0 instead.
+2022-07-18 11:10:51,198 Summary name vars/embedding/set_transformer/pool_attn/output/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/output/bias_0 instead.
+2022-07-18 11:10:51,200 Summary name vars/embedding/set_transformer/output/kernel:0 is illegal; using vars/embedding/set_transformer/output/kernel_0 instead.
+2022-07-18 11:10:51,201 Summary name vars/embedding/set_transformer/output/bias:0 is illegal; using vars/embedding/set_transformer/output/bias_0 instead.
+2022-07-18 11:10:51,202 Summary name vars/critic/critic/critic_l0/kernel:0 is illegal; using vars/critic/critic/critic_l0/kernel_0 instead.
+2022-07-18 11:10:51,204 Summary name vars/critic/critic/critic_l0/bias:0 is illegal; using vars/critic/critic/critic_l0/bias_0 instead.
+2022-07-18 11:10:51,205 Summary name vars/critic/critic/critic_l1/kernel:0 is illegal; using vars/critic/critic/critic_l1/kernel_0 instead.
+2022-07-18 11:10:51,207 Summary name vars/critic/critic/critic_l1/bias:0 is illegal; using vars/critic/critic/critic_l1/bias_0 instead.
+2022-07-18 11:10:51,208 Summary name vars/critic/critic/critic_l2/kernel:0 is illegal; using vars/critic/critic/critic_l2/kernel_0 instead.
+2022-07-18 11:10:51,209 Summary name vars/critic/critic/critic_l2/bias:0 is illegal; using vars/critic/critic/critic_l2/bias_0 instead.
+2022-07-18 11:10:51,210 Summary name vars/embedding/set_transformer/inds_0:0 is illegal; using vars/embedding/set_transformer/inds_0_0 instead.
+2022-07-18 11:10:51,212 Summary name vars/embedding/set_transformer/self_attn_0_pre/query/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/query/kernel_0 instead.
+2022-07-18 11:10:51,213 Summary name vars/embedding/set_transformer/self_attn_0_pre/query/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/query/bias_0 instead.
+2022-07-18 11:10:51,214 Summary name vars/embedding/set_transformer/self_attn_0_pre/key/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/key/kernel_0 instead.
+2022-07-18 11:10:51,216 Summary name vars/embedding/set_transformer/self_attn_0_pre/key/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/key/bias_0 instead.
+2022-07-18 11:10:51,217 Summary name vars/embedding/set_transformer/self_attn_0_pre/value/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/value/kernel_0 instead.
+2022-07-18 11:10:51,218 Summary name vars/embedding/set_transformer/self_attn_0_pre/value/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/value/bias_0 instead.
+2022-07-18 11:10:51,220 Summary name vars/embedding/set_transformer/self_attn_0_pre/output/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/output/kernel_0 instead.
+2022-07-18 11:10:51,221 Summary name vars/embedding/set_transformer/self_attn_0_pre/output/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_pre/output/bias_0 instead.
+2022-07-18 11:10:51,222 Summary name vars/embedding/set_transformer/self_attn_0_post/query/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/query/kernel_0 instead.
+2022-07-18 11:10:51,223 Summary name vars/embedding/set_transformer/self_attn_0_post/query/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/query/bias_0 instead.
+2022-07-18 11:10:51,224 Summary name vars/embedding/set_transformer/self_attn_0_post/key/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/key/kernel_0 instead.
+2022-07-18 11:10:51,225 Summary name vars/embedding/set_transformer/self_attn_0_post/key/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/key/bias_0 instead.
+2022-07-18 11:10:51,226 Summary name vars/embedding/set_transformer/self_attn_0_post/value/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/value/kernel_0 instead.
+2022-07-18 11:10:51,227 Summary name vars/embedding/set_transformer/self_attn_0_post/value/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/value/bias_0 instead.
+2022-07-18 11:10:51,228 Summary name vars/embedding/set_transformer/self_attn_0_post/output/kernel:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/output/kernel_0 instead.
+2022-07-18 11:10:51,229 Summary name vars/embedding/set_transformer/self_attn_0_post/output/bias:0 is illegal; using vars/embedding/set_transformer/self_attn_0_post/output/bias_0 instead.
+2022-07-18 11:10:51,230 Summary name vars/embedding/set_transformer/pool_seed:0 is illegal; using vars/embedding/set_transformer/pool_seed_0 instead.
+2022-07-18 11:10:51,231 Summary name vars/embedding/set_transformer/pool_attn/query/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/query/kernel_0 instead.
+2022-07-18 11:10:51,231 Summary name vars/embedding/set_transformer/pool_attn/query/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/query/bias_0 instead.
+2022-07-18 11:10:51,232 Summary name vars/embedding/set_transformer/pool_attn/key/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/key/kernel_0 instead.
+2022-07-18 11:10:51,233 Summary name vars/embedding/set_transformer/pool_attn/key/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/key/bias_0 instead.
+2022-07-18 11:10:51,234 Summary name vars/embedding/set_transformer/pool_attn/value/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/value/kernel_0 instead.
+2022-07-18 11:10:51,235 Summary name vars/embedding/set_transformer/pool_attn/value/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/value/bias_0 instead.
+2022-07-18 11:10:51,236 Summary name vars/embedding/set_transformer/pool_attn/output/kernel:0 is illegal; using vars/embedding/set_transformer/pool_attn/output/kernel_0 instead.
+2022-07-18 11:10:51,237 Summary name vars/embedding/set_transformer/pool_attn/output/bias:0 is illegal; using vars/embedding/set_transformer/pool_attn/output/bias_0 instead.
+2022-07-18 11:10:51,238 Summary name vars/embedding/set_transformer/output/kernel:0 is illegal; using vars/embedding/set_transformer/output/kernel_0 instead.
+2022-07-18 11:10:51,239 Summary name vars/embedding/set_transformer/output/bias:0 is illegal; using vars/embedding/set_transformer/output/bias_0 instead.
+2022-07-18 11:10:51,242 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_0:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_0_0 instead.
+2022-07-18 11:10:51,246 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_1:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_1_0 instead.
+2022-07-18 11:10:51,249 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_2:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_2_0 instead.
+2022-07-18 11:10:51,252 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_3:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_3_0 instead.
+2022-07-18 11:10:51,255 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_4:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_4_0 instead.
+2022-07-18 11:10:51,258 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_5:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_5_0 instead.
+2022-07-18 11:10:51,262 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_6:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_6_0 instead.
+2022-07-18 11:10:51,265 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_7:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_7_0 instead.
+2022-07-18 11:10:51,268 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_8:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_8_0 instead.
+2022-07-18 11:10:51,271 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_9:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_9_0 instead.
+2022-07-18 11:10:51,275 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_10:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_10_0 instead.
+2022-07-18 11:10:51,279 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_11:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_11_0 instead.
+2022-07-18 11:10:51,283 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_12:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_12_0 instead.
+2022-07-18 11:10:51,287 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_13:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_13_0 instead.
+2022-07-18 11:10:51,292 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_14:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_14_0 instead.
+2022-07-18 11:10:51,296 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_15:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_15_0 instead.
+2022-07-18 11:10:51,300 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_16:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_16_0 instead.
+2022-07-18 11:10:51,304 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_17:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_17_0 instead.
+2022-07-18 11:10:51,309 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_18:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_18_0 instead.
+2022-07-18 11:10:51,313 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_19:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_19_0 instead.
+2022-07-18 11:10:51,318 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_20:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_20_0 instead.
+2022-07-18 11:10:51,322 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_21:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_21_0 instead.
+2022-07-18 11:10:51,326 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_22:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_22_0 instead.
+2022-07-18 11:10:51,330 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_23:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_23_0 instead.
+2022-07-18 11:10:51,334 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_24:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_24_0 instead.
+2022-07-18 11:10:51,338 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_25:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_25_0 instead.
+2022-07-18 11:10:51,343 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_26:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_26_0 instead.
+2022-07-18 11:10:51,348 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_27:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_27_0 instead.
+2022-07-18 11:10:51,352 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_28:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_28_0 instead.
+2022-07-18 11:10:51,357 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_29:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_29_0 instead.
+2022-07-18 11:10:51,361 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_30:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_30_0 instead.
+2022-07-18 11:10:51,365 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_31:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_31_0 instead.
+2022-07-18 11:10:51,369 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_32:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_32_0 instead.
+2022-07-18 11:10:51,374 Summary name grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_33:0 is illegal; using grads/actor_train/clip_by_global_norm/actor_train/clip_by_global_norm/_33_0 instead.
+2022-07-18 11:10:51,378 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_0:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_0_0 instead.
+2022-07-18 11:10:51,382 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_1:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_1_0 instead.
+2022-07-18 11:10:51,387 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_2:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_2_0 instead.
+2022-07-18 11:10:51,391 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_3:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_3_0 instead.
+2022-07-18 11:10:51,394 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_4:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_4_0 instead.
+2022-07-18 11:10:51,397 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_5:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_5_0 instead.
+2022-07-18 11:10:51,401 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_6:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_6_0 instead.
+2022-07-18 11:10:51,405 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_7:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_7_0 instead.
+2022-07-18 11:10:51,408 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_8:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_8_0 instead.
+2022-07-18 11:10:51,412 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_9:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_9_0 instead.
+2022-07-18 11:10:51,415 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_10:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_10_0 instead.
+2022-07-18 11:10:51,418 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_11:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_11_0 instead.
+2022-07-18 11:10:51,421 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_12:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_12_0 instead.
+2022-07-18 11:10:51,425 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_13:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_13_0 instead.
+2022-07-18 11:10:51,428 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_14:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_14_0 instead.
+2022-07-18 11:10:51,431 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_15:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_15_0 instead.
+2022-07-18 11:10:51,435 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_16:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_16_0 instead.
+2022-07-18 11:10:51,440 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_17:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_17_0 instead.
+2022-07-18 11:10:51,445 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_18:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_18_0 instead.
+2022-07-18 11:10:51,450 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_19:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_19_0 instead.
+2022-07-18 11:10:51,455 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_20:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_20_0 instead.
+2022-07-18 11:10:51,458 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_21:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_21_0 instead.
+2022-07-18 11:10:51,462 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_22:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_22_0 instead.
+2022-07-18 11:10:51,465 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_23:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_23_0 instead.
+2022-07-18 11:10:51,469 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_24:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_24_0 instead.
+2022-07-18 11:10:51,474 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_25:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_25_0 instead.
+2022-07-18 11:10:51,478 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_26:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_26_0 instead.
+2022-07-18 11:10:51,483 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_27:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_27_0 instead.
+2022-07-18 11:10:51,488 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_28:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_28_0 instead.
+2022-07-18 11:10:51,492 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_29:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_29_0 instead.
+2022-07-18 11:10:51,497 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_30:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_30_0 instead.
+2022-07-18 11:10:51,500 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_31:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_31_0 instead.
+2022-07-18 11:10:51,504 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_32:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_32_0 instead.
+2022-07-18 11:10:51,508 Summary name grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_33:0 is illegal; using grads/predictor_train/clip_by_global_norm/predictor_train/clip_by_global_norm/_33_0 instead.
+2022-07-18 11:10:51,513 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_0:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_0_0 instead.
+2022-07-18 11:10:51,518 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_1:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_1_0 instead.
+2022-07-18 11:10:51,522 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_2:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_2_0 instead.
+2022-07-18 11:10:51,526 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_3:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_3_0 instead.
+2022-07-18 11:10:51,531 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_4:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_4_0 instead.
+2022-07-18 11:10:51,535 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_5:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_5_0 instead.
+2022-07-18 11:10:51,539 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_6:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_6_0 instead.
+2022-07-18 11:10:51,544 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_7:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_7_0 instead.
+2022-07-18 11:10:51,548 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_8:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_8_0 instead.
+2022-07-18 11:10:51,553 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_9:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_9_0 instead.
+2022-07-18 11:10:51,557 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_10:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_10_0 instead.
+2022-07-18 11:10:51,561 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_11:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_11_0 instead.
+2022-07-18 11:10:51,566 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_12:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_12_0 instead.
+2022-07-18 11:10:51,570 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_13:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_13_0 instead.
+2022-07-18 11:10:51,574 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_14:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_14_0 instead.
+2022-07-18 11:10:51,577 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_15:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_15_0 instead.
+2022-07-18 11:10:51,580 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_16:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_16_0 instead.
+2022-07-18 11:10:51,583 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_17:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_17_0 instead.
+2022-07-18 11:10:51,588 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_18:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_18_0 instead.
+2022-07-18 11:10:51,593 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_19:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_19_0 instead.
+2022-07-18 11:10:51,597 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_20:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_20_0 instead.
+2022-07-18 11:10:51,602 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_21:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_21_0 instead.
+2022-07-18 11:10:51,606 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_22:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_22_0 instead.
+2022-07-18 11:10:51,611 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_23:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_23_0 instead.
+2022-07-18 11:10:51,615 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_24:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_24_0 instead.
+2022-07-18 11:10:51,620 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_25:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_25_0 instead.
+2022-07-18 11:10:51,625 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_26:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_26_0 instead.
+2022-07-18 11:10:51,629 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_27:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_27_0 instead.
+2022-07-18 11:10:51,634 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_28:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_28_0 instead.
+2022-07-18 11:10:51,638 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_29:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_29_0 instead.
+2022-07-18 11:10:51,642 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_30:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_30_0 instead.
+2022-07-18 11:10:51,646 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_31:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_31_0 instead.
+2022-07-18 11:10:51,649 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_32:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_32_0 instead.
+2022-07-18 11:10:51,652 Summary name grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_33:0 is illegal; using grads/critic_train/clip_by_global_norm/critic_train/clip_by_global_norm/_33_0 instead.
+2022-07-18 11:10:54,210 Restoring parameters from ./exp/ppo/weights/best.ckpt
+2022-07-18 11:14:56,037 action frequency:
+2022-07-18 11:14:56,040 {0: 176.0,
+ 1: 176.0,
+ 2: 176.0,
+ 3: 176.0,
+ 4: 176.0,
+ 5: 176.0,
+ 6: 176.0,
+ 7: 0.0,
+ 8: 176.0,
+ 9: 176.0,
+ 10: 176.0,
+ 11: 176.0,
+ 12: 176.0,
+ 13: 176.0,
+ 14: 176.0,
+ 15: 176.0,
+ 16: 176.0,
+ 17: 176.0,
+ 18: 176.0,
+ 19: 0.0,
+ 20: 176.0,
+ 21: 176.0,
+ 22: 176.0,
+ 23: 176.0,
+ 24: 176.0,
+ 25: 176.0,
+ 26: 176.0,
+ 27: 176.0,
+ 28: 176.0,
+ 29: 176.0,
+ 30: 176.0,
+ 31: 176.0,
+ 32: 176.0,
+ 33: 6.0,
+ 34: 176.0,
+ 35: 176.0,
+ 36: 176.0,
+ 37: 176.0,
+ 38: 176.0,
+ 39: 176.0,
+ 40: 176.0,
+ 41: 176.0,
+ 42: 176.0}
+2022-07-18 11:14:56,040 example transitions:
+2022-07-18 11:14:56,040 [ 6 25 17  3 27  2 11  0 38 39  5 31 24 15 16 34 37  7  4  0 26 32 19 10
+ 13 20  8 29 30 36 40 14 33  0 23 21 28 35 22  9 18 41 12]
+2022-07-18 11:14:56,040 [ 6 25 18  3 27  2 11  0 38 39  5 31 24 15 16 34 37  7  4  0 26 32 19 10
+ 13 20  8 29 30 36 40 14 33  0 23 21 28 35 22  9 17 41 12]
+2022-07-18 11:14:56,041 [ 6 25 17  3 27  2 11  0 38 39  5 31 24 15 16 34 37  7  4  0 26 32 19 10
+ 13 20  8 29 30 36 40 14 33  0 23 21 28 35 22  9 18 41 12]
+2022-07-18 11:14:56,041 [ 6 25 17  3 27  2 11  0 38 39  5 31 24 15 16 34 37  7  4  0 26 32 19 10
+ 13 20  8 29 30 36 40 14 33  0 23 21 28 35 22  9 18 41 12]
+2022-07-18 11:14:56,042 [ 6 25 17  3 26  2 11  0 38 39  5 31 24 15 16 34 37  7  4  0 27 32 19 10
+ 13 20  8 29 30 36 40 14 33  0 23 21 28 35 22  9 18 41 12]
+2022-07-18 11:14:56,042 ####################
+2022-07-18 11:14:56,042 evaluate:
+2022-07-18 11:14:56,042 episode_reward: -1923.54150390625
+2022-07-18 11:14:56,042 num_acquisition: 40.03409194946289
+2022-07-18 11:14:56,042 mse_acflow: 2603.55029296875
+2022-07-18 11:14:56,042 mse_policy: 3791.2578125
+2022-07-18 11:14:56,042 reward_acflow: -2604.4814453125
+2022-07-18 11:14:56,042 reward_policy: -3792.189208984375
