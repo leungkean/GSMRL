@@ -26,9 +26,12 @@ You might need to change the path for each dataset in `datasets` folder accordin
 
 - `solv_desc_HL`: Dataset with solvent descriptors, corresponding cheap features, and `holu_gap`.
 
-In datasets that include the HOMO-LUMO gap feature (`holu_gap`), I have explicitly included a `cost`.
+Cheap Features in `solv_desc`:
+```
+[80, 222, 294, 389, 650, 656, 674, 790, 807, 926, 1017, 1028, 1057, 1088, 1199, 1384, 1683, 1722, 1823, 1917, 1920]
+```
 
-The acquisition cost of the `holu_gap` feature will be around 20X that of the cheap feature.
+In datasets that include the HOMO-LUMO gap feature (`holu_gap`), I have explicitly included a `cost`. The acquisition cost of the `holu_gap` feature will be around 20X that of the cheap feature.
 
 ## Train and Test
 
