@@ -52,6 +52,8 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/params.json
 
 ### Solvent
 
+Same as in `Cube` dataset except for these differences
+
 - Train the ACflow model
 
 To train the ACflow model for both `solvent` and `solv_desc` datasets just change the directory to the corresponding dataset.
@@ -69,5 +71,3 @@ and
 "model_dir": "./exp/solv_desc"
 ```
 for the dataset currently in use.
-
-
