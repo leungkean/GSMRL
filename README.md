@@ -18,17 +18,15 @@ You might need to change the path for each dataset in `datasets` folder accordin
 
 #### Chemistry Dataset with Cheap/Expensive Features
 
-- `solvent_cheap`: Dataset with all cheap features and all solvent descriptors.
+- `solvent_20_cheap`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
 
-- `solv_desc_cheap`: Dataset with solvent descriptors and the corresponding cheap features.
+- `solvent_exp`: Dataset with all expensive features.
 
-- `solvent_HL`: Dataset with all cheap features, `holu_gap`, and all solvent descriptors.
+- `solvent_20_both`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV and all expensive features.
 
-- `solv_desc_HL`: Dataset with solvent descriptors, corresponding cheap features, and `holu_gap`.
-
-Cheap Features in `solv_desc`:
+**Top 20 Cheap Features Determined Using Nested CV:**
 ```
-[80, 222, 294, 389, 650, 656, 674, 790, 807, 926, 1017, 1028, 1057, 1088, 1199, 1384, 1683, 1722, 1823, 1917, 1920]
+[1313, 352, 1808, 1594, 1724, 650, 824, 1476, 1379, 439, 45, 204, 584, 222_solv, 2, 1971, 249, 1754, 1357, 1573]
 ```
 
 In datasets that include the HOMO-LUMO gap feature (`holu_gap`), I have explicitly included a `cost`. The acquisition cost of the `holu_gap` feature will be around 20X that of the cheap feature.
@@ -42,12 +40,12 @@ You can train your own model by the scripts provided below.
 - Train the ACflow model
 
 ``` bash
-python scripts/train_model.py --cfg_file=./exp/cube/params.json
+python scripts/train_model.py --cfg_file=./exp/acflow/cube/params.json
 ```
 
 - Train the PPO Policy
 ``` bash
-python scripts/train_agent.py --cfg_file=./exp/ppo/params.json
+python scripts/train_agent.py --cfg_file=./exp/ppo/cube/params.json
 ```
 
 ### Solvent
@@ -56,18 +54,10 @@ Same as in `Cube` dataset except for these differences
 
 - Train the ACflow model
 
-To train the ACflow model for both `solvent` and `solv_desc` datasets just change the directory to the corresponding dataset.
+Change the directory for the corresponding dataset.
 
 - Train the PPO Policy
 
 **Important:** Add `--env reg` flag.
 
-Modify the entries in the `params.json` configuration file in `exp/ppo` directory 
-```
-"dfile": "./data/solv_desc.pkl"
-```
-and
-```
-"model_dir": "./exp/solv_desc"
-```
-for the dataset currently in use.
+Change the directory for the corresponding dataset.
