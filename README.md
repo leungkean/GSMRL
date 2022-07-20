@@ -52,12 +52,8 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/cube/params.json
 
 Same as in `Cube` dataset except for these differences
 
-- Train the ACflow model
+- Train the ACflow model: Change the directory for the corresponding dataset.
 
-Change the directory for the corresponding dataset.
-
-- Train the PPO Policy
+- Train the PPO Policy: Change the directory for the corresponding dataset.
 
 **Important:** Add `--env reg` flag.
-
-Change the directory for the corresponding dataset.
