@@ -1,3 +1,0 @@
-model_checkpoint_path: "params.ckpt"
-all_model_checkpoint_paths: "best.ckpt"
-all_model_checkpoint_paths: "params.ckpt"
