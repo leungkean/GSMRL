@@ -51,7 +51,9 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/cube/params.json
 
 ### Solvent
 
-Same as in `Cube` dataset except for these differences
+Same as in `Cube` dataset except for these differences:
+
+We will be using the ACflow Regression model and use the regression environment to train the agent using PPO.
 
 - Train the ACflow model: Change the directory for the corresponding dataset.
 
