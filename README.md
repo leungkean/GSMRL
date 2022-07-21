@@ -15,7 +15,7 @@ conda install -c anaconda cudatoolkit=10.0
 
 ### Download data and data preprocess
 
-Download your training data into the data folder. You need to convert the data file into a pickle file. The structure of the data should be a dictionary. The keys are 'train','valid', and 'test' and the values are the corresponding data tuple (x, y).
+Download your training data into the data folder. You need to convert the data file into a pickle file. The structure of the data should be a dictionary. The keys are 'train', 'valid', and 'test' and the values are the corresponding data tuple (x, y).
 <br />
 You need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
@@ -25,7 +25,7 @@ You need to change the path for each dataset in `datasets` folder accordingly, i
 
 - `solvent_exp`: <br /> Dataset with all expensive features.
 
-- `solvent_20_HL`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` expensive feature. 
+- `solvent_20_HL`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` feature. 
 
 **Top 20 Cheap Features Determined Using Nested CV:**
 ```
