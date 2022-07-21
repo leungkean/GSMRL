@@ -69,6 +69,13 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env r
 
 [^1]: The acquisition cost of expensive features will be around 20X that of the cheap features.
 
-### Interpreting Results
+### Results
 
-- `evaluate`: <br /> There are two `.pkl` files - `test.pkl` and `train.pkl`.
+The following files are in `results`.
+
+- `evaluate`: <br /> There are two `.pkl` files, `test.pkl` and `train.pkl`, which are dictionaries that contain the rewards and state transitions over all episodes.
+  - `transitions:  
+- `weights`: <br /> Folder that contains the weights for the MDP agent for reference.
+- `params.json`: <br /> Configuration file to train the MDP agent.
+- `learning_curve.png`: <br /> Graph of the rewards vs. episodes.
+- `train.log`: <br /> Log file while training
