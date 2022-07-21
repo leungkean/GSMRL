@@ -25,7 +25,7 @@ You need to change the path for each dataset in `datasets` folder accordingly, i
 
 - `solvent_exp`: <br /> Dataset with all expensive features.
 
-- `solvent_20_HL`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV and the expensive HOMO-LUMO `holu gap` expensive feature. 
+- `solvent_20_HL`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` expensive feature. 
 
 **Top 20 Cheap Features Determined Using Nested CV:**
 ```
@@ -55,9 +55,9 @@ Same as in `Cube` dataset except for these differences:
 
 We will be using the ACflow Regression model and use the regression environment to train the agent using PPO.
 
-- Train the ACflow model: Change the directory for the corresponding dataset.
+- Train the ACflow model: <br /> Change the directory for the corresponding dataset.
 
-- Train the PPO Policy: Change the directory for the corresponding dataset.
+- Train the PPO Policy: <br /> Change the directory for the corresponding dataset.
 
 **Important:** Add `--env reg` flag.
 
