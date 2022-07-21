@@ -1,14 +1,14 @@
 {
-    "gpu": "2",
+    "gpu": "0",
     "seed": 123,
     "dataset": "env",
-    "dfile": "./data/solvent_20_both.pkl",
-    "dimension": 28,
+    "dfile": "./data/solvent_20_HL.pkl",
+    "dimension": 21,
     "n_target": 1,
     "class_weights": [1],
     "batch_size": 256,
     "model": "acflow_regressor",
-    "lambda_mse": 0.0,
+    "lambda_rmse": 0.0,
     "lambda_xent": 1.0,
     "lambda_nll": 1.0,
     "transform": ["AF","TL","TL","TL","TL","AF"],
@@ -30,7 +30,7 @@
     "decay_steps": 10000,
     "decay_rate": 0.5,
     "clip_gradient": 1,
-    "exp_dir": "./exp/acflow/solvent_20_both",
+    "exp_dir": "./exp/acflow/solvent_20_HL",
     "summ_freq": 100,
     "num_samples": 10
 }

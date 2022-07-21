@@ -1,12 +1,12 @@
 {
-    "dfile": "./data/solvent_20_both.pkl",
-    "dimension": 28,
-    "act_size": 29,
+    "dfile": "./data/solvent_20_HL.pkl",
+    "dimension": 21,
+    "act_size": 22,
     "n_target": 1,
     "dataset": "env",
     "episode_workers": 16,
     "acquisition_cost": 0.01,
-    "model_dir": "./exp/acflow/solvent_20_both",
+    "model_dir": "./exp/acflow/solvent_20_HL",
     "num_heads": 4,
     "embed_type": "set",
     "num_induced_points": 16,
@@ -33,5 +33,5 @@
     "log_freq": 1,
     "eval_freq": 100,
     "save_freq": 1,
-    "exp_dir": "./exp/ppo/solvent_20_both"
+    "exp_dir": "./exp/ppo/solvent_20_HL"
 }

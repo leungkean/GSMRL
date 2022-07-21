@@ -22,14 +22,12 @@ You might need to change the path for each dataset in `datasets` folder accordin
 
 - `solvent_exp`: Dataset with all expensive features.
 
-- `solvent_20_both`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV and all expensive features.
+- `solvent_20_HL`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV and the expensive HOMO-LUMO `holu gap` expensive feature [^1]. 
 
 **Top 20 Cheap Features Determined Using Nested CV:**
 ```
 [1313, 352, 1808, 1594, 1724, 650, 824, 1476, 1379, 439, 45, 204, 584, 222_solv, 2, 1971, 249, 1754, 1357, 1573]
 ```
-
-In datasets that include the HOMO-LUMO gap feature (`holu_gap`), I have explicitly included a `cost`. The acquisition cost of the `holu_gap` feature will be around 20X that of the cheap feature.
 
 ## Train and Test
 
@@ -57,3 +55,5 @@ Same as in `Cube` dataset except for these differences
 - Train the PPO Policy: Change the directory for the corresponding dataset.
 
 **Important:** Add `--env reg` flag.
+
+[^1]: The acquisition cost of the `holu_gap` feature will be around 20X that of the cheap feature.
