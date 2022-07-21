@@ -19,13 +19,13 @@ Download your training data into the data folder. You need to convert the data f
 <br />
 You need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
-#### Chemistry Dataset with Cheap/Expensive Features
+#### Chemistry Dataset with Cheap/Expensive Features [^1]
 
 - `solvent_20_cheap`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
 
 - `solvent_exp`: Dataset with all expensive features.
 
-- `solvent_20_HL`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV and the expensive HOMO-LUMO `holu gap` expensive feature [^1]. 
+- `solvent_20_HL`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV and the expensive HOMO-LUMO `holu gap` expensive feature. 
 
 **Top 20 Cheap Features Determined Using Nested CV:**
 ```
@@ -61,4 +61,4 @@ We will be using the ACflow Regression model and use the regression environment 
 
 **Important:** Add `--env reg` flag.
 
-[^1]: The acquisition cost of the `holu_gap` feature will be around 20X that of the cheap feature.
+[^1]: The acquisition cost of expensive features will be around 20X that of the cheap features.
