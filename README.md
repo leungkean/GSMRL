@@ -4,6 +4,9 @@
 ### Prerequisites
 
 The code requires `python3.7` to run. For the required python packages, refer to `requirements.txt`.
+```
+pip install -r requirements.txt
+```
 
 **IMPORTANT:** Ensure that you have `cudatoolkit=10.0` installed.
 ```
