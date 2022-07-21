@@ -15,17 +15,17 @@ conda install -c anaconda cudatoolkit=10.0
 
 ### Download data and data preprocess
 
-Download your training data into the data folder. You need to convert the data file into a pickle file. The structure of the data should be a dictionary. The keys are 'train','valid', and 'test' and the values are the corresponding data tuple (x, y).
+Download your training data into the data folder. You need to convert the data file into a pickle file. The structure of the data should be a dictionary. The keys are 'train', 'valid', and 'test' and the values are the corresponding data tuple (x, y).
 <br />
 You need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
-#### Chemistry Dataset with Cheap/Expensive Features
+#### Chemistry Dataset with Cheap/Expensive Features [^1]
 
-- `solvent_20_cheap`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
+- `solvent_20_cheap`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
 
-- `solvent_exp`: Dataset with all expensive features.
+- `solvent_exp`: <br /> Dataset with all expensive features.
 
-- `solvent_20_HL`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV and the expensive HOMO-LUMO `holu gap` expensive feature [^1]. 
+- `solvent_20_HL`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` feature. 
 
 **Top 20 Cheap Features Determined Using Nested CV:**
 ```
@@ -51,12 +51,31 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/cube/params.json
 
 ### Solvent
 
-Same as in `Cube` dataset except for these differences
+Same as in `Cube` dataset except for these differences:
 
-- Train the ACflow model: Change the directory for the corresponding dataset.
+We will be using the ACflow Regression model and use the regression environment to train the agent using PPO.
 
-- Train the PPO Policy: Change the directory for the corresponding dataset.
+- Train the ACflow model:
+``` bash
+python scripts/train_model.py --cfg_file=./exp/acflow/[dataset]/params.json
+```
 
-**Important:** Add `--env reg` flag.
+- Train the PPO Policy:
+``` bash
+python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env reg
+```
 
-[^1]: The acquisition cost of the `holu_gap` feature will be around 20X that of the cheap feature.
+**Important:** Ensure `--env reg` flag is selected.
+
+[^1]: The acquisition cost of expensive features will be around 20X that of the cheap features.
+
+### Results
+
+The following files are in `results`.
+
+- `evaluate`: <br /> There are two `.pkl` files, `test.pkl` and `train.pkl`, which are dictionaries that contain the rewards and state transitions over all episodes.
+  - `transitions`: <br /> The `transitions` represent the accumulation of the masks over an episode. Thus, if a feature has a larger value in the `transitions` array, then it was selected earlier than a feature with a smaller value.
+- `weights`: <br /> Folder that contains the weights for the MDP agent for reference.
+- `params.json`: <br /> Configuration file to train the MDP agent.
+- `learning_curve.png`: <br /> Graph of the rewards vs. episodes.
+- `train.log`: <br /> Log file while training
