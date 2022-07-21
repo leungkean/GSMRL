@@ -28,13 +28,13 @@ You need to change the path for each dataset in `datasets` folder accordingly, i
 [234, 244, 322, 356, 393, 698, 725, 790, 792, 841, 80, 350, 465, 573, 583, 879, 901, 675, 147, 833]
 ```
 
-#### Chemistry Dataset with Cheap/Expensive Features (Regression) [^1]
+#### Chemistry Dataset with Cheap/Expensive Features (Regression)
 
-- `solvent_20_cheap`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
+- `solvent_20_cheap`[^1]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
 
-- `solvent_exp`: <br /> Dataset with all expensive features.
+- `solvent_exp`[^2]: <br /> Dataset with all expensive features.
 
-- `solvent_20_HL`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` feature. 
+- `solvent_20_HL`[^2]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` feature. 
 
 **Top 20 Cheap Features Determined Using Nested CV:**
 ```
@@ -76,7 +76,8 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env r
 
 **Important:** Ensure `--env reg` flag is selected.
 
-[^1]: The acquisition cost of cheap features will be 0 while the cost of the expensive features will be 20.
+[^1]: The acquisition cost of cheap features will be 1.
+[^2]: The acquisition cost of cheap features will be 0 while the cost of the expensive features will be 20.
 
 ### Results
 
