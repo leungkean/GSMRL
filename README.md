@@ -55,10 +55,16 @@ Same as in `Cube` dataset except for these differences:
 
 We will be using the ACflow Regression model and use the regression environment to train the agent using PPO.
 
-- Train the ACflow model: <br /> Change the directory for the corresponding dataset.
+- Train the ACflow model:
+``` bash
+python scripts/train_model.py --cfg_file=./exp/acflow/[dataset]/params.json
+```
 
-- Train the PPO Policy: <br /> Change the directory for the corresponding dataset.
+- Train the PPO Policy:
+``` bash
+python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env reg
+```
 
-**Important:** Add `--env reg` flag.
+**Important:** Make sure to add `--env reg` flag.
 
 [^1]: The acquisition cost of expensive features will be around 20X that of the cheap features.
