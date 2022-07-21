@@ -74,7 +74,7 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env r
 The following files are in `results`.
 
 - `evaluate`: <br /> There are two `.pkl` files, `test.pkl` and `train.pkl`, which are dictionaries that contain the rewards and state transitions over all episodes.
-  - `transitions:  
+  - `transitions`: <br /> The `transitions` represent the accumulation of the masks over an episode. Thus, if a feature has a larger value in the `transitions` array, then it was selected earlier than a feature with a smaller value.
 - `weights`: <br /> Folder that contains the weights for the MDP agent for reference.
 - `params.json`: <br /> Configuration file to train the MDP agent.
 - `learning_curve.png`: <br /> Graph of the rewards vs. episodes.
