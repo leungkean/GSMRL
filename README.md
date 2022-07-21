@@ -65,6 +65,6 @@ python scripts/train_model.py --cfg_file=./exp/acflow/[dataset]/params.json
 python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env reg
 ```
 
-**Important:** Make sure to add `--env reg` flag.
+**Important:** Ensure `--env reg` flag is selected.
 
 [^1]: The acquisition cost of expensive features will be around 20X that of the cheap features.
