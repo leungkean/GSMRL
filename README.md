@@ -21,11 +21,11 @@ You need to change the path for each dataset in `datasets` folder accordingly, i
 
 #### Chemistry Dataset with Cheap/Expensive Features [^1]
 
-- `solvent_20_cheap`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
+- `solvent_20_cheap`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
 
-- `solvent_exp`: Dataset with all expensive features.
+- `solvent_exp`: <br /> Dataset with all expensive features.
 
-- `solvent_20_HL`: Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV and the expensive HOMO-LUMO `holu gap` expensive feature. 
+- `solvent_20_HL`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV and the expensive HOMO-LUMO `holu gap` expensive feature. 
 
 **Top 20 Cheap Features Determined Using Nested CV:**
 ```
