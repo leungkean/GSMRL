@@ -19,6 +19,15 @@ Download your training data into the data folder. You need to convert the data f
 <br />
 You need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
+#### Chemistry Dataset with Top 20 Features (Classification)
+
+- `molecule_20`: <br /> Dataset with top 20 features determined using nested CV.
+
+**Top 20 Features Determined Using Nested CV:**
+```
+[234, 244, 322, 356, 393, 698, 725, 790, 792, 841, 80, 350, 465, 573, 583, 879, 901, 675, 147, 833]
+```
+
 #### Chemistry Dataset with Cheap/Expensive Features (Regression) [^1]
 
 - `solvent_20_cheap`: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
