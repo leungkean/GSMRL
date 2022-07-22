@@ -59,7 +59,20 @@ python scripts/train_model.py --cfg_file=./exp/acflow/cube/params.json
 python scripts/train_agent.py --cfg_file=./exp/ppo/cube/params.json
 ```
 
-### Solvent
+### Molecule_20 (Classification)
+
+- Train the ACflow model
+
+``` bash
+python scripts/train_model.py --cfg_file=./exp/acflow/molecule_20/params.json
+```
+
+- Train the PPO Policy
+``` bash
+python scripts/train_agent.py --cfg_file=./exp/ppo/molecule_20/params.json
+```
+
+### Solvent (Regression)
 
 Same as in `Cube` dataset except for these differences:
 
