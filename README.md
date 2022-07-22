@@ -30,12 +30,12 @@ You need to change the path for each dataset in `datasets` folder accordingly, i
 
 #### Chemistry Dataset with Cheap/Expensive Features (Regression)
 
-- `solvent_20_cheap`[^1]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
+* `solvent_20_cheap`[^1]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
 
-- `solvent_exp`[^2]: <br /> Dataset with all expensive features.
+* `solvent_exp`[^2]: <br /> Dataset with all expensive features.
 
-- `solvent_20_HL`[^2]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` feature. 
-- `solvent_20_exp`[^2]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and all the expensive features. 
+* `solvent_20_HL`[^2]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` feature. 
+* `solvent_20_exp`[^2]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and all the expensive features. 
 
 **Top 20 Cheap Features Determined Using Nested CV:**
 ```
