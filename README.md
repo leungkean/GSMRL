@@ -21,7 +21,7 @@ You need to change the path for each dataset in `datasets` folder accordingly, i
 
 #### Nested Cross-Validation
 
-To ensure that training the surrogate model runs in a reasonble (2-3 hours) amount of time, I decided to use nested cross validation to determine the top 20 features for testing, training and evaluation. Here, the model I used was an MLP with 3 hidden layers and 300 hidden units, and the hyperparameter is the binary mask used to select the features. In nested cross-validation, I used a 3 fold inner cross-validation to select the best binary mask, while I used a 10 fold outer cross-validation for evaluation.
+To ensure that training the surrogate model runs in a reasonble (2-3 hours) amount of time, I decided to use nested cross validation to determine the top 20 features for testing, training and evaluation. Here, the model I used was an MLP with 3 hidden layers and 300 hidden units, and the hyperparameter is the binary mask used to select the features. In nested cross-validation, I used a 3 fold inner cross-validation to select the best binary mask, while a 10 fold outer cross-validation was used for evaluation.
 
 #### Chemistry Dataset with Top 20 Features (Classification)
 
