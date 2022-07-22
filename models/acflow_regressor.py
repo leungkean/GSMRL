@@ -53,7 +53,7 @@ class Model(object):
         # mean of p(y | x_u, x_o)
         mean_y = self.flow.mean(xy, by, my)
         self.mean_y = mean_y[:,-Nt:]
-        self.rmse = tf.reduce_sum(tf.square(self.mean_y - self.y), axis=1)
+        self.mse = tf.reduce_sum(tf.square(self.mean_y - self.y), axis=1)
 
         # log p(x_u, y | x_o)
         bj = tf.concat([self.b, tf.zeros((B,Nt),dtype=tf.float32)], axis=1)
@@ -92,17 +92,17 @@ class Model(object):
         loss = -tf.reduce_mean(self.logpy) - tf.reduce_mean(self.logpj)
         if self.hps.lambda_nll > 0:
             loss -= self.hps.lambda_nll * tf.reduce_mean(self.logpo)
-        # # if self.hps.lambda_rmse > 0:
-        # #     rmse = tf.reduce_mean(tf.reduce_sum(tf.square(self.mean_j - xy), axis=1))
-        # #     loss += self.hps.lambda_rmse * rmse
-        if self.hps.lambda_rmse > 0:
-            rmse = tf.math.sqrt(tf.reduce_mean(self.rmse))
-            loss += self.hps.lambda_rmse * rmse
+        # # if self.hps.lambda_mse > 0:
+        # #     mse = tf.reduce_mean(tf.reduce_sum(tf.square(self.mean_j - xy), axis=1))
+        # #     loss += self.hps.lambda_mse * mse
+        if self.hps.lambda_mse > 0:
+            mse = tf.reduce_mean(self.mse)
+            loss += self.hps.lambda_mse * mse
         tf.summary.scalar('loss', loss)
-
+        
         # metric
         # self.metric = self.logpy + self.logpj + self.logpo
-        self.metric = -self.rmse
+        self.metric = -self.mse
 
         # train
         self.global_step = tf.train.get_or_create_global_step()
@@ -140,4 +140,3 @@ class Model(object):
         out = self.sess.run(cmd, feed_dict)
 
         return out
-
