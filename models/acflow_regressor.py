@@ -53,7 +53,7 @@ class Model(object):
         # mean of p(y | x_u, x_o)
         mean_y = self.flow.mean(xy, by, my)
         self.mean_y = mean_y[:,-Nt:]
-        self.rmse = tf.math.sqrt(tf.reduce_sum(tf.square(self.mean_y - self.y), axis=1))
+        self.rmse = tf.reduce_sum(tf.square(self.mean_y - self.y), axis=1)
 
         # log p(x_u, y | x_o)
         bj = tf.concat([self.b, tf.zeros((B,Nt),dtype=tf.float32)], axis=1)
@@ -96,10 +96,10 @@ class Model(object):
         # #     rmse = tf.reduce_mean(tf.reduce_sum(tf.square(self.mean_j - xy), axis=1))
         # #     loss += self.hps.lambda_rmse * rmse
         if self.hps.lambda_rmse > 0:
-            rmse = tf.reduce_mean(self.rmse)
+            rmse = tf.math.sqrt(tf.reduce_mean(self.rmse))
             loss += self.hps.lambda_rmse * rmse
         tf.summary.scalar('loss', loss)
-        
+
         # metric
         # self.metric = self.logpy + self.logpj + self.logpo
         self.metric = -self.rmse
