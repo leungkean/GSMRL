@@ -62,19 +62,19 @@ class Env(object):
 
     def _reg_reward(self, x, m, y, p):
         '''
-        calculate the RMSE as reward
+        calculate the MSE as reward
         '''
-        rmse_acflow = self.model.run(self.model.rmse, 
+        mse_acflow = self.model.run(self.model.mse, 
                     feed_dict={self.model.x: x,
                                self.model.b: m,
                                self.model.m: m,
                                self.model.y: y})
 
-        rmse_policy = np.sqrt(np.mean(np.square(p-y), axis=-1))
+        mse_policy = np.sum(np.square(p-y), axis=-1)
 
-        rmse = rmse_acflow
+        mse = np.minimum(mse_acflow, mse_policy)
         
-        return -rmse
+        return -mse
 
     def _info_gain(self, x, old_m, m, y):
         '''
@@ -152,21 +152,21 @@ class Env(object):
         return future
 
     def evaluate(self, state, mask, prediction):
-        rmse_acflow = self.model.run(self.model.rmse,
+        mse_acflow = self.model.run(self.model.mse,
                     feed_dict={self.model.x: state,
                                self.model.b: mask,
                                self.model.m: mask,
                                self.model.y: self.y})
         
-        rmse_policy = np.sqrt(np.mean(np.square(prediction-self.y), axis=-1))
+        mse_policy = np.sum(np.square(prediction-self.y), axis=-1)
 
         # final reward
         cost = np.mean(mask, axis=1)
-        reward_acflow = -rmse_acflow - cost
-        reward_policy = reward_acflow
+        reward_acflow = -mse_acflow - cost
+        reward_policy = -mse_policy - cost
 
-        return {'rmse_acflow': rmse_acflow,
-                'rmse_policy': rmse_policy,
+        return {'mse_acflow': mse_acflow,
+                'mse_policy': mse_policy,
                 'reward_acflow': reward_acflow,
                 'reward_policy': reward_policy}
 
