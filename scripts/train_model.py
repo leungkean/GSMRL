@@ -91,7 +91,7 @@ def train():
         train_metrics.append(metric)
     train_metrics = np.concatenate(train_metrics, axis=0)
 
-    return np.sqrt(np.mean(train_metrics))
+    return np.mean(train_metrics)
 
 def valid():
     valid_metrics = []
@@ -104,7 +104,7 @@ def valid():
         valid_metrics.append(metric)
     valid_metrics = np.concatenate(valid_metrics, axis=0)
 
-    return np.sqrt(np.mean(valid_metrics))
+    return np.mean(valid_metrics)
 
 def test():
     test_metrics = []
@@ -117,7 +117,7 @@ def test():
         test_metrics.append(metric)
     test_metrics = np.concatenate(test_metrics, axis=0)
 
-    return np.sqrt(np.mean(test_metrics))
+    return np.mean(test_metrics)
 
 ###############################################################
 
@@ -149,4 +149,3 @@ for epoch in range(params.epochs):
                  valid_metric, best_valid_metric,
                  test_metric, best_test_metric))
     sys.stdout.flush()
-
