@@ -1,5 +1,5 @@
 {
-    "gpu": "0",
+    "gpu": "1",
     "seed": 123,
     "dataset": "env",
     "dfile": "./data/solvent_20_HL.pkl",
@@ -24,7 +24,7 @@
     "prior_units": 256,
     "prior_layers": 2,
     "prior_hids": [256,256],
-    "epochs": 500,
+    "epochs": 1500,
     "optimizer": "adam",
     "lr": 0.001,
     "decay_steps": 10000,

@@ -1,4 +1,5 @@
 {
+    "gpu": "0",
     "dfile": "./data/solvent_20_cheap.pkl",
     "dimension": 20,
     "act_size": 21,

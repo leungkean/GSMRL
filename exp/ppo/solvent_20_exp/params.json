@@ -1,12 +1,12 @@
 {
-    "gpu": "1",
-    "dfile": "./data/solvent_20_HL.pkl",
-    "dimension": 21,
-    "act_size": 22,
+    "gpu": "3",
+    "dfile": "./data/solvent_20_exp.pkl",
+    "dimension": 28,
+    "act_size": 29,
     "n_target": 1,
     "dataset": "env",
     "episode_workers": 16,
-    "model_dir": "./exp/acflow/solvent_20_HL",
+    "model_dir": "./exp/acflow/solvent_20_exp",
     "num_heads": 4,
     "embed_type": "set",
     "num_induced_points": 16,
@@ -33,5 +33,5 @@
     "log_freq": 1,
     "eval_freq": 100,
     "save_freq": 1,
-    "exp_dir": "./exp/ppo/solvent_20_HL"
+    "exp_dir": "./exp/ppo/solvent_20_exp"
 }

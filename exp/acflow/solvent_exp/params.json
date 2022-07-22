@@ -1,5 +1,5 @@
 {
-    "gpu": "0",
+    "gpu": "2",
     "seed": 123,
     "dataset": "env",
     "dfile": "./data/solvent_exp.pkl",
