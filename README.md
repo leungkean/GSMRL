@@ -46,7 +46,7 @@ You need to change the path for each dataset in `datasets` folder accordingly, i
 
 ## Baselines
 
-The `baselines` folder contains both the linear least squares and neural network models. <br /> We use these two models to set a baseline RMSE for training on the full chemistry cheap/expensive dataset (regression). 
+The `baselines` folder contains both the linear least squares and neural network models. <br /> We use these two models to set a baseline RMSE for training on the full chemistry cheap/expensive dataset (solvent). 
 
 ## Train and Test
 
