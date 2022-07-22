@@ -77,7 +77,7 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env r
 **Important:** Ensure `--env reg` flag is selected.
 
 [^1]: The acquisition cost of cheap features will be 1.
-[^2]: The acquisition cost of cheap features will be 0 while the cost of the expensive features will be 5.
+[^2]: The acquisition cost of cheap features will be 0 while the cost of the expensive features will be 10.
 
 ### Results
 
