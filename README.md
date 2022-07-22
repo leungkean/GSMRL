@@ -44,6 +44,10 @@ You need to change the path for each dataset in `datasets` folder accordingly, i
 [1313, 352, 1808, 1594, 1724, 650, 824, 1476, 1379, 439, 45, 204, 584, 222_solv, 2, 1971, 249, 1754, 1357, 1573]
 ```
 
+## Baselines
+
+The `baselines` folder contains both the linear least squares and neural network models. <br /> We use these two models to set a baseline RMSE for training on the full chemistry cheap/expensive dataset (regression). 
+
 ## Train and Test
 
 You can train your own model by the scripts provided below.
