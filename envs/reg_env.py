@@ -70,7 +70,7 @@ class Env(object):
                                self.model.m: m,
                                self.model.y: y})
 
-        rmse_policy = np.sum(np.square(p-y), axis=-1)
+        rmse_policy = np.sqrt(np.mean(np.square(p-y), axis=-1))
 
         rmse = np.minimum(rmse_acflow, rmse_policy)
         
@@ -158,7 +158,7 @@ class Env(object):
                                self.model.m: mask,
                                self.model.y: self.y})
         
-        rmse_policy = np.sum(np.square(prediction-self.y), axis=-1)
+        rmse_policy = np.sqrt(np.mean(np.square(prediction-self.y), axis=-1))
 
         # final reward
         cost = np.mean(mask, axis=1)

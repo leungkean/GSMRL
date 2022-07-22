@@ -5,7 +5,7 @@
     "n_target": 1,
     "dataset": "env",
     "episode_workers": 16,
-    "acquisition_cost": 0.01,
+    "acquisition_cost": 10.0,
     "model_dir": "./exp/acflow/solvent_20_exp",
     "num_heads": 4,
     "embed_type": "set",
