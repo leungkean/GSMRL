@@ -95,9 +95,11 @@ class Model(object):
         # # if self.hps.lambda_mse > 0:
         # #     mse = tf.reduce_mean(tf.reduce_sum(tf.square(self.mean_j - xy), axis=1))
         # #     loss += self.hps.lambda_mse * mse
+        """
         if self.hps.lambda_mse > 0:
             mse = tf.reduce_mean(self.mse)
             loss += self.hps.lambda_mse * mse
+        """
         tf.summary.scalar('loss', loss)
         
         # metric
