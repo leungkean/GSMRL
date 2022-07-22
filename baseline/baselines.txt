@@ -1,0 +1,43 @@
+Linear Least Squares Regression:
+
+solvent_20_cheap - 
+Valid RMSE: 126.16778564453125
+Test RMSE: 128.874755859375
+
+solvent_20_HL - 
+Valid RMSE: 77.16232299804688
+Test RMSE: 80.25953674316406
+
+solvent_20_exp - 
+Valid RMSE: 61.347171783447266
+Test RMSE: 63.63735580444336
+
+solvent_exp - 
+Valid RMSE: 66.91551971435547
+Test RMSE: 68.94263458251953
+
+Full Dataset - 
+Valid RMSE: 45.888824462890625
+Test RMSE: 47.64213562011719
+
+Neural Network Regression:
+
+solvent_20_cheap - 
+Final Valid RMSE: 77.4680
+Test RMSE: 83.7784
+
+solvent_20_HL -
+Final Valid RMSE: 45.8773           
+Test RMSE: 51.9146
+
+solvent_20_exp -
+Final Valid RMSE: 33.7516           
+Test RMSE: 36.0346
+
+solvent_exp -
+Final Valid RMSE: 50.6813           
+Test RMSE: 52.3140
+
+Full Dataset - 
+Final Valid RMSE: 22.9303
+Test RMSE: 23.3357
