@@ -6,6 +6,7 @@
     "n_target": 1,
     "dataset": "env",
     "episode_workers": 16,
+    "acquisiton_cost": 25.0,
     "model_dir": "./exp/acflow/solvent_20_HL",
     "num_heads": 4,
     "embed_type": "set",
