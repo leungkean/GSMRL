@@ -30,6 +30,8 @@ You need to change the path for each dataset in `datasets` folder accordingly, i
 
 #### Chemistry Dataset with Cheap/Expensive Features (Regression)
 
+**Note**: All expensive features are normalized to range [-1,1]
+
 1. `solvent_20_cheap`[^1]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV.
 
 2. `solvent_exp`[^2]: <br /> Dataset with all expensive features.
