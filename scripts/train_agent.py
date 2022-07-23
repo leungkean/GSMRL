@@ -72,6 +72,8 @@ with tf.device(f"/gpu:{args.agent_device}"):
 
 test_dict = agent.evaluate(hard=args.hard, max_batches=11)
 
+print("Cost:", Env.cost)
+
 # save
 os.makedirs(f'{params.exp_dir}/evaluate', exist_ok=True)
 with open(f'{params.exp_dir}/evaluate/train.pkl', 'wb') as f:

@@ -25,6 +25,8 @@ class Dataset(object):
         self.size = data.shape[0]
         self.d = data.shape[1]
         self.num_batches = math.ceil(self.size / batch_size)
+        if 'cost' in data_dict: 
+            self.cost = data_dict['cost']
 
         ind = tf.range(self.size, dtype=tf.int64)
         dst = tf.data.Dataset.from_tensor_slices((ind, data, label))
