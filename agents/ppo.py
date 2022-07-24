@@ -477,6 +477,8 @@ class PPOPolicy(object):
             'reward': reward_history,
             'reward_smooth10': reward_averaged,
         }
+        if hasattr(self.env, "cost"):
+            logger.info("Cost Check: {}".format(self.env.cost))
         plot_dict(f'{self.hps.exp_dir}/learning_curve.png', data_dict, xlabel='episode')
 
     def evaluate(self, load=True, hard=False, max_batches=10):
