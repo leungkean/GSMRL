@@ -100,9 +100,6 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env r
 
 **Important:** Ensure `--env reg` flag is selected.
 
-[^1]: The acquisition cost of all features will be 0.
-[^2]: The acquisition cost of cheap features will be 0 while the cost of the expensive features will be ≈ 18.1 (found using binary search).
-
 ### Results
 
 The following files are in `results`.
@@ -113,3 +110,6 @@ The following files are in `results`.
 - `params.json`: <br /> Configuration file to train the MDP agent.
 - `learning_curve.png`: <br /> Graph of the rewards vs. episodes.
 - `train.log`: <br /> Log file while training
+
+[^1]: The acquisition cost of all features will be 0.
+[^2]: The acquisition cost of cheap features will be 0 while the cost of the expensive features will be ≈ 18.2 (found using binary search).
