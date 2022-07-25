@@ -40,7 +40,7 @@ To ensure that training the surrogate model runs in a reasonble (2-3 hours) amou
 
 2. `solvent_exp`[^1]: <br /> Dataset with all expensive features.
 
-3. `solvent_20_HL`[^2]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` feature. 
+3. `solvent_20_HL`[^1]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and the expensive HOMO-LUMO `holu gap` feature. 
 4. `solvent_20_exp`[^2]: <br /> Dataset with top 20 cheap features (including solvent descriptors) determined using nested CV <br /> and all the expensive features. 
 
 **Top 20 Cheap Features Determined Using Nested CV:**
@@ -100,7 +100,7 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env r
 
 **Important:** Ensure `--env reg` flag is selected.
 
-[^1]: The acquisition cost of all features will be 1.
+[^1]: The acquisition cost of all features will be 0.
 [^2]: The acquisition cost of cheap features will be 0 while the cost of the expensive features will be ≈ 18.125 (found using binary search).
 
 ### Results
