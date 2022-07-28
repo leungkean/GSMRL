@@ -1,4 +1,5 @@
 # Active Feature Acquisition with Generative Surrogate Models
+Original: https://github.com/lupalab/GSMRL/tree/GSMRL
 ## Get Started
 
 ### Prerequisites
