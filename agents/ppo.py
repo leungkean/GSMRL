@@ -472,7 +472,7 @@ class PPOPolicy(object):
         # FINISH
         self.save()
         logger.info("[FINAL] episodes: {}, Max reward: {}, Average reward: {}".format(
-            len(reward_history), np.sqrt(np.abs(np.max(reward_history))), np.sqrt(np.abs(np.mean(reward_history)))))
+            len(reward_history), np.max(reward_history), np.mean(reward_history)))
         data_dict = {
             'reward': reward_history,
             'reward_smooth10': reward_averaged,
