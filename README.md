@@ -113,4 +113,4 @@ The following files are in `results`.
 - `train.log`: <br /> Log file while training
 
 [^1]: The acquisition cost of all features will be 0.
-[^2]: The acquisition cost of cheap features will be 0 while the cost of the expensive features will be ≈ 21.75 (found using binary search).
+[^2]: The acquisition cost of all cheap features will be 0 and expensive features will be predetermined.
