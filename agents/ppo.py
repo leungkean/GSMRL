@@ -194,7 +194,7 @@ class PPOPolicy(object):
             else:
                 p_target = tf.cast(self.p_target, tf.int64)
                 loss_p = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=self.predictor, labels=p_target)
-            loss_p = tf.reduce_mean(loss_p * self.done)
+            loss_p = tf.math.sqrt(tf.reduce_mean(loss_p * self.done))
 
             optim_p = tf.train.AdamOptimizer(self.lr_p)
             grads_and_vars = optim_p.compute_gradients(loss_p, var_list=self.predictor_vars+self.embed_vars)
