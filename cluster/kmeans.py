@@ -15,7 +15,7 @@ def kmeans(X, k):
     labels : array, shape (n_samples,)
         Labels of each point.
     """
-    kmeans = KMeans(n_clusters=k, random_state=0).fit(X)
+    kmeans = KMeans(n_clusters=k, random_state=0, verbose=1).fit(X)
     return (kmeans.labels_, kmeans.n_iter_, kmeans.n_features_in_)
 
 if __name__ == '__main__':
@@ -30,21 +30,16 @@ if __name__ == '__main__':
     for i in range(exp_feat.shape[1]):
         exp_feat[:, i] = 2.*(exp_feat[:, i] - exp_feat[:, i].min()) / np.ptp(exp_feat[:, i]) - 1.
     data = np.concatenate((cheap_feat, exp_feat), axis=1)
+    out = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 0]
+    out = out.reshape(-1, 1)
+    data = np.concatenate((data, out), axis=1)
+
     train_indices = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 1] == 0
     data = data[train_indices, :]
 
     labels, n_iter, feat_in = kmeans(data, 2)
 
-    """
-    iterations = 0
-    while np.count_nonzero(labels) > data.shape[0]*0.1:
-        labels, n_iter, feat_in = kmeans(data, 2)
-        iterations += 1
-        if (iterations+1) % 10 == 0:
-            print("Iteration:", iterations)
-            print("z = 1:", np.count_nonzero(labels))
-    """
-
     print("Number of iterations:", n_iter)
     print("Number of features in:", feat_in)
     print("Labels:", labels)
+    print("z = 1:", np.count_nonzero(labels), " ", np.count_nonzero(labels)*100/labels.shape[0], "%")
