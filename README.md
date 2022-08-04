@@ -101,7 +101,7 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env r
 
 **Important:** Ensure `--env reg` flag is selected.
 
-### Variational Autoencoder
+### Variational GMM
 
 We treat the data as a GMM and optimize the parameters to cluster the dataset into two classes: one acquires only cheap features (z = 0) 
 and the other class acquires both cheap and expensive features (z = 1). In this case, we initialize the prior p(z) such that only cheap features
