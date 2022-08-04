@@ -31,7 +31,7 @@ def log_multivariate_normal(x, mean, sigma):
     sigma_det = tf.reshape(tf.math.reduce_sum(tf.math.log(sigma), axis=2), (1, mean.shape[0]))
     sigma_inv = tf.reshape(tf.linalg.diag(1/sigma), (sigma.shape[0], sigma.shape[2], sigma.shape[2]))
     x_mean = x - mean
-    k = mean.shape[0]
+    k = x.shape[1]
     const = -0.5*k*tf.math.log((2*np.pi)) - 0.5*sigma_det
     return const - 0.5*tf.transpose(tf.math.reduce_sum(tf.math.multiply(tf.matmul(x_mean, sigma_inv), x_mean), axis=2))
 
@@ -97,7 +97,7 @@ def grad(model, inputs):
 
 def train(training_inputs):
     K = 2 
-    d = inputs.shape[1]
+    d = training_inputs.shape[1]
     model = VGMM(d, K, nhidden_layers=2)
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.005)
     steps = 10000
@@ -140,7 +140,7 @@ if __name__ == "__main__":
     # Normalize expensive feature to [-1, 1]
     for i in range(exp_feat.shape[1]):
         exp_feat[:, i] = 2.*(exp_feat[:, i] - exp_feat[:, i].min()) / np.ptp(exp_feat[:, i]) - 1.
-    inputs = np.concatenate((cheap_feat, exp_feat), axis=1)
+    data = np.concatenate((cheap_feat, exp_feat), axis=1)
 
     labels = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 0]
     labels = labels.reshape(-1, 1)
@@ -148,6 +148,6 @@ if __name__ == "__main__":
     #inputs = np.concatenate((inputs, labels), axis=1)
 
     train_indices = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 1] == 0
-    train_inputs = inputs[train_indices, :]
+    train_inputs = data[train_indices, :]
 
     model = train(tf.convert_to_tensor(train_inputs))
