@@ -103,8 +103,8 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env r
 
 ### Variational GMM
 
-We treat the data as a GMM and optimize the parameters to cluster the dataset into two classes: one acquires only cheap features (z = 0) 
-and the other class acquires both cheap and expensive features (z = 1). In this case, we initialize the prior p(z) such that only cheap features
+We treat the data as a GMM and optimize the parameters to cluster the dataset into two mixture components: one acquires only cheap features (z = 0) 
+and the other component acquires both cheap and expensive features (z = 1). In this case, we initialize the prior p(z) such that only cheap features
 are acquires around 10% of the time.
 
 ### Results
