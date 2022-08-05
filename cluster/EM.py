@@ -1,9 +1,9 @@
-from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
 import numpy as np
 
-def kmeans(X, k):
+def GMM(X, k):
     """
-    K-means clustering.
+    Fitting a Gaussian Mixture Model with EM
     Parameters
     ----------
     X : array-like, shape (n_samples, n_features)
@@ -15,8 +15,8 @@ def kmeans(X, k):
     labels : array, shape (n_samples,)
         Labels of each point.
     """
-    kmeans = KMeans(n_clusters=k, random_state=0, verbose=1).fit(X)
-    return (kmeans.labels_, kmeans.n_iter_, kmeans.n_features_in_)
+    gmm = GaussianMixture(n_components=k, tol=1e-6, covariance_type='tied').fit(X)
+    return gmm
 
 if __name__ == '__main__':
     features = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 5:]
@@ -32,14 +32,14 @@ if __name__ == '__main__':
     data = np.concatenate((cheap_feat, exp_feat), axis=1)
     out = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 0]
     out = out.reshape(-1, 1)
-    data = np.concatenate((data, out), axis=1)
+    #data = np.concatenate((data, out), axis=1)
 
     train_indices = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 1] == 0
     data = data[train_indices, :]
 
-    labels, n_iter, feat_in = kmeans(data, 2)
+    model = GMM(data, k=2)
+    labels = model.predict(data)
 
-    print("Number of iterations:", n_iter)
-    print("Number of features in:", feat_in)
+    print("Means:", model.means_)
     print("Labels:", labels)
     print("z = 1:", np.count_nonzero(labels), " ", np.count_nonzero(labels)*100/labels.shape[0], "%")
