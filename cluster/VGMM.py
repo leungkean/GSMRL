@@ -15,10 +15,10 @@ def VGMM(X, k):
     labels : array, shape (n_samples,)
         Labels of each point.
     """
-    bgm = BayesianGaussianMixture(n_components=k, max_iter=1000, verbose=1, covariance_type='tied', weight_concentration_prior=0.9, tol=1e-6, init_params='random_from_data').fit(X)
+    bgm = BayesianGaussianMixture(n_components=k, max_iter=1000, verbose=1, covariance_type='full', weight_concentration_prior=0.9, tol=1e-8).fit(X)
     return bgm 
 
-if __name__ == '__main__':
+def train(fold):
     features = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 5:]
     cheap_feat = features[:,:-8]
     cheap_feat[cheap_feat>0] = 1.
@@ -30,20 +30,26 @@ if __name__ == '__main__':
     for i in range(exp_feat.shape[1]):
         exp_feat[:, i] = 2.*(exp_feat[:, i] - exp_feat[:, i].min()) / np.ptp(exp_feat[:, i]) - 1.
     data = np.concatenate((cheap_feat, exp_feat), axis=1)
-    out = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 0]
-    out = out.reshape(-1, 1)
-    #data = np.concatenate((data, out), axis=1)
 
-    train_indices = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 1] == 0
-    train = data[train_indices, :]
+    if fold == 1: 
+        fold1 = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 1]
+        train = data[fold1 == 0, :]
+    elif fold == 2: 
+        fold2 = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 2]
+        train = data[fold2 == 0, :]
+    else: 
+        fold3 = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 3]
+        train = data[fold3 == 0, :]
 
     model = VGMM(train, k=2)
     score = model.score(train)
     weights = model.weights_
-    while np.min(weights) < 0.1 or np.min(weights) > 0.15:
+    '''
+    while np.min(weights) < 0.09 or np.min(weights) > 0.15:
         model = VGMM(train, k=2)
         weights = model.weights_
         print(weights)
+    '''
     labels = model.predict(train)
 
     print("Training")
@@ -52,17 +58,6 @@ if __name__ == '__main__':
     print("Score:", score)
     print("Weights:", weights)
 
-    np.save("exp_train.npy", labels)
+    return model, labels
 
-    test_indices = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 1] == 1
-    test = data[test_indices, :]
-
-    labels = model.predict(test)
-    score = model.score(test)
-    weights = model.weights_
-    print("Testing")
-    print("Labels:", labels)
-    print("Score:", score)
-    print("Weights:", weights)
-
-    np.save("exp_test.npy", labels)
+train(1)

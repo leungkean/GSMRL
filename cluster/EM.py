@@ -15,7 +15,7 @@ def GMM(X, k):
     labels : array, shape (n_samples,)
         Labels of each point.
     """
-    gmm = GaussianMixture(n_components=k, tol=1e-6, covariance_type='tied').fit(X)
+    gmm = GaussianMixture(n_components=k, tol=1e-8, weights_init=[0.9, 0.1], covariance_type='full', verbose=1).fit(X)
     return gmm
 
 if __name__ == '__main__':
@@ -41,5 +41,6 @@ if __name__ == '__main__':
     labels = model.predict(data)
 
     print("Means:", model.means_)
-    print("Labels:", labels)
-    print("z = 1:", np.count_nonzero(labels), " ", np.count_nonzero(labels)*100/labels.shape[0], "%")
+    print("Labels:", labels[:100])
+    print("Weights:", model.weights_)
+    print("Score:", model.score(data))

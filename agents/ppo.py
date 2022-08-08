@@ -544,7 +544,7 @@ class PPOPolicy(object):
         num_batches = 0
         while True: # iterate over dataset
             num_batches += 1
-            s, m = self.env.reset(loop=False, init=init)
+            s, m, _ = self.env.reset(loop=False, init=init)
             init = False
             if s is None or m is None:
                 break # stop iteration
