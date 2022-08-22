@@ -3,7 +3,7 @@ import numpy as np
 import math
 import pickle
 
-def _parse(i, x, y, d, e):
+def _parse(i, x, y, d):
     b = np.zeros([d], dtype=np.float32)
     no = np.random.choice(d)
     o = np.random.choice(d, [no], replace=False)
@@ -13,7 +13,7 @@ def _parse(i, x, y, d, e):
     w = np.random.choice(w)
     m[w] = 1.
 
-    return i, x, y, b, m, e[i]
+    return i, x, y, b, m
 
 class Dataset(object):
     def __init__(self, dfile, split, batch_size):
@@ -24,24 +24,22 @@ class Dataset(object):
         data, label = data_dict[split]
         self.size = data.shape[0]
         self.d = data.shape[1]
-        self.num_batches = math.ceil(self.size / batch_size) 
-
-        self.cost = data_dict['cost'] 
-
-        self.e = data_dict['exp'].astype(np.int64)
+        self.num_batches = math.ceil(self.size / batch_size)
+        if 'cost' in data_dict: 
+            self.cost = data_dict['cost']
 
         ind = tf.range(self.size, dtype=tf.int64)
         dst = tf.data.Dataset.from_tensor_slices((ind, data, label))
         if split == 'train':
             dst = dst.shuffle(self.size)
         dst = dst.map(lambda i, x, y: tuple(
-            tf.py_func(_parse, [i, x, y, self.d, self.e], 
-            [tf.int64, tf.float32, tf.float32, tf.float32, tf.float32, tf.int64])),
+            tf.py_func(_parse, [i, x, y, self.d], 
+            [tf.int64, tf.float32, tf.float32, tf.float32, tf.float32])),
             num_parallel_calls=16)
         dst = dst.batch(batch_size)
         dst = dst.prefetch(1)
         dst_it = dst.make_initializable_iterator()
-        self.i, self.x, self.y, self.b, self.m, self.exp = dst_it.get_next()
+        self.i, self.x, self.y, self.b, self.m = dst_it.get_next()
         self.initializer = dst_it.initializer
 
     def initialize(self, sess):

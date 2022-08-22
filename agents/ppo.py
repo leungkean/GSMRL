@@ -83,54 +83,6 @@ class PPOPolicy(object):
 
         return action, prediction
 
-    def act_exp(self, state, mask, future, exp, hard=False):
-          '''
-          state: [B,d] observed dimensions with values
-          mask: [B,d] binary mask indicating observed dimensions
-                1: observed   0: unobserved
-          future: [B,d*n]
-          action: [B] sample an action to take
-          prediction: [B,K] prediction from partial observation
-          '''
-          probas, prediction = self.sess.run([self.actor_proba, self.predictor],
-                                          feed_dict={self.state: state,
-                                                     self.mask: mask,
-                                                     self.future: future})
-          
-          # logger.info(f'probas:  {probas}')
-          # logger.info(f'self.x:  {self.x}')
-          # for i, vals in enumerate(self.x):
-          #     for j, val in enumerate(vals):
-          #         if val == 0:
-          #             probas[i][j] = 0
-          # sum = []
-          # for i in probas:
-          #     sum.append(np.sum(i))
-  
-          # for i, vals in enumerate(probas):
-          #     for j, val in enumerate(vals):
-          #         probas[i][j] = probas[i][j] / sum[i]    
-
-          action = np.zeros(len(probas))
-
-          if hard:
-              for i in range(len(probas)):
-                  if exp[i] == 0:
-                      action[i] = np.argmax(probas[i])
-                  else:
-                      action[i] = np.argmax(np.append(probas[i, :20], probas[i,-1]))
-                      if action[i] == 20: action[i] = self.act_size - 1
-          else:
-              for i in range(len(probas)):
-                  if exp[i] == 0:
-                      action[i] = np.random.choice(self.act_size, p=probas[i])
-                  else:
-                      probs = probas[i]
-                      probs[20:-1] = 0.
-                      action[i] = np.random.choice(self.act_size, p=probs)
-  
-          return action, prediction
-
     def scope_vars(self, scope, only_trainable=True):
         collection = tf.GraphKeys.TRAINABLE_VARIABLES if only_trainable else tf.GraphKeys.VARIABLES
         variables = tf.get_collection(collection, scope=scope)
@@ -298,13 +250,7 @@ class PPOPolicy(object):
             self.merged_summary = tf.summary.merge_all(key=tf.GraphKeys.SUMMARIES)
 
     def _generate_rollout(self, buffer):
-        temp = self.env.reset() # [B,d]
-        train = False
-        if len(temp) == 2:
-            s, m = temp
-        else:
-            s, m, e = temp
-            train = True
+        s, m = self.env.reset() # [B,d]
         obs = []
         masks = []
         futures = []
@@ -318,10 +264,7 @@ class PPOPolicy(object):
         while not np.all(done):
             logger.debug(f'mask: {m}')
             f = self.env.peek(s, m)
-            if train: 
-                a_orig, p = self.act(s, m, f) # [B]
-            else:
-                a_orig, p = self.act_exp(s, m, f, e)
+            a_orig, p = self.act(s, m, f) # [B]
             logger.debug(f'action: {a_orig}')
             a = a_orig.copy()
             a[done] = -1 # empty action
@@ -544,7 +487,7 @@ class PPOPolicy(object):
         num_batches = 0
         while True: # iterate over dataset
             num_batches += 1
-            s, m, _ = self.env.reset(loop=False, init=init)
+            s, m = self.env.reset(loop=False, init=init)
             init = False
             if s is None or m is None:
                 break # stop iteration

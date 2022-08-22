@@ -16,7 +16,7 @@ parser.add_argument('--epoch', type=int)
 parser.add_argument('--nhidden', type=int)
 args = parser.parse_args()
 
-def load_data(fold, cheap_only=False):
+def load_data(fold=1, cheap_only=False):
     features = np.genfromtxt("../../chemistry/dyes_cheap_expensive_with_folds.csv", delimiter=',', skip_header=1, dtype=float)[:, 5:]
     cheap_feat = features[:,:-8]
     cheap_feat[cheap_feat>0] = 1.
@@ -44,39 +44,37 @@ def load_data(fold, cheap_only=False):
     test_inputs = data[indices==1, :]
     return (train_inputs, train_labels, valid_inputs, valid_labels, test_inputs, test_labels)
 
-def abs_layer(x):
-    return tf.math.abs(x)
+def mix_layer(x):
+    mu = tf.expand_dims(tf.math.abs(x[:, 0]), axis=1)
+    sigma = tf.expand_dims(tf.math.abs(x[:, 1]), axis=1)
+    return tf.concat([mu, sigma], axis=1)
 
-def mlp():
+def mlp(train_inputs, train_labels, valid_inputs, valid_labels):
     hidden_size = 300 
 
-    inp = tf.keras.Input(shape=(train_inputs.shape[1],)) 
-    x = tf.keras.layers.Dense(hidden_size, activation='relu')(inp)
-    for i in range(args.nhidden-1): 
-        x = tf.keras.layers.Dense(hidden_size, activation='relu')(x)
-    mu = tf.keras.layers.Dense(1, activation='relu')(x)
-    sigma = tf.keras.layers.Dense(1, activation='relu')(x)
-
-    m = tf.keras.Model(inputs=inp, outputs=[mu, sigma])
+    m = tf.keras.Sequential()
+    m.add(tf.keras.Input(shape=(train_inputs.shape[1],)))
+    for i in range(args.nhidden): 
+        m.add(tf.keras.layers.Dense(hidden_size, activation='relu', kernel_regularizer='l2'))
+    m.add(tf.keras.layers.Dense(2))
+    m.add(tf.keras.layers.Lambda(mix_layer))
 
     def normal_loss(y_true, y_pred): 
-        dist = tf.math.log(1/tf.math.sqrt(2*np.pi*y_pred[1][0]**2)) - 0.5*(y_true - y_pred[0][0])**2/y_pred[1][0]**2 
+        mu = tf.expand_dims(y_pred[:, 0], axis=1)
+        sigma = tf.expand_dims(y_pred[:, 1], axis=1)
+        dist = tf.math.log(1/tf.math.sqrt(2*np.pi*sigma**2)) - 0.5*(y_true - mu)**2/sigma**2 
         return tf.math.reduce_mean(-dist)
 
-    m.compile(loss=['mse', normal_loss], optimizer='Adam')
+    m.compile(loss=normal_loss, optimizer='Adam')
     m.summary() 
 
     history = m.fit(train_inputs, train_labels, epochs=args.epoch, 
                     validation_data=(valid_inputs, valid_labels))
     return (history, m)
 
-def main(): 
-    h, model = mlp()
+train_inputs, train_labels, valid_inputs, valid_labels, test_inputs, test_labels = load_data()
+h, model = mlp(train_inputs, train_labels, valid_inputs, valid_labels)
 
-    print("Test:") 
-    model.evaluate(train_inputs, train_labels) 
-    print(model.predict(train_inputs))
-
-# If this is the main thread of execution, run the code.
-if __name__ == "__main__": 
-    main()
+print("Test:") 
+model.evaluate(train_inputs, train_labels) 
+print(model.predict(train_inputs))
