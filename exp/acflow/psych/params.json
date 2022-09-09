@@ -3,7 +3,7 @@
     "seed": 123,
     "dataset": "env",
     "dfile": "./data/psych_data.pkl",
-    "dimension": 191,
+    "dimension": 40,
     "n_target": 9,
     "class_weights": [1],
     "batch_size": 256,
