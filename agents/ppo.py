@@ -144,10 +144,10 @@ class PPOPolicy(object):
             else:
                 assert self.act_size == d
                 logits_mask = self.mask
-            inf_tensor = -tf.ones_like(self.actor) * np.inf
+            inf_tensor = -tf.ones_like(self.actor) * 1e4
             self.actor_logits = tf.where(tf.equal(logits_mask, 0), self.actor, inf_tensor)
             self.actor_proba = tf.nn.softmax(self.actor_logits)
-            self.actor_log_proba = tf.nn.log_softmax(self.actor_logits)
+            self.actor_log_proba = tf.nn.log_softmax(self.actor_logits) 
             self.actor_entropy = tf.distributions.Categorical(probs=self.actor_proba).entropy()
             index = tf.stack([tf.range(tf.shape(self.action)[0]), self.action], axis=1)
             self.logp_a = tf.gather_nd(self.actor_log_proba, index)

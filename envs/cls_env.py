@@ -8,7 +8,7 @@ from scipy.special import softmax
 from utils.hparams import HParams
 from models import get_model
 #change the dataset name here
-from datasets.cube import Dataset
+from datasets.env import Dataset
 
 logger = logging.getLogger()
 
