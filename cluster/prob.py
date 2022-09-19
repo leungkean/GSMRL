@@ -24,9 +24,9 @@ def load_data(full, fold=1):
     cheap_feat[cheap_feat==0] = -1.
     exp_feat = features[:,-8:]
     cheap_feat = np.array(cheap_feat, np.float32) + np.random.normal(0, 0.01, (features.shape[0], 222)).astype(np.float32)
-    top_20 = top_20 = [127,  45, 193, 103, 116, 142, 138, 197,  92,   2,  93, 150, 129, 22,  60, 143, 115, 118,  15, 181]
-    top_20.sort()
-    cheap_feat = cheap_feat[:, top_20]
+    #top_20 = top_20 = [127,  45, 193, 103, 116, 142, 138, 197,  92,   2,  93, 150, 129, 22,  60, 143, 115, 118,  15, 181]
+    #top_20.sort()
+    #cheap_feat = cheap_feat[:, top_20]
     exp_feat = np.array(features[:,-8:], np.float32).reshape((features.shape[0], 8))
     # Normalize expensive feature to [-1, 1]
     for i in range(exp_feat.shape[1]):
@@ -58,7 +58,7 @@ def mlp(train_inputs, train_labels, valid_inputs, valid_labels):
     m = tf.keras.Sequential()
     m.add(tf.keras.Input(shape=(train_inputs.shape[1],)))
     for i in range(args.nhidden): 
-        m.add(tf.keras.layers.Dense(hidden_size, activation='relu', kernel_regularizer='l2'))
+        m.add(tf.keras.layers.Dense(hidden_size, activation='relu'))
     m.add(tf.keras.layers.Dense(2))
     m.add(tf.keras.layers.Lambda(mix_layer))
 
@@ -81,3 +81,16 @@ model.save(f'prob{args.nu}')
 
 print("Test:") 
 model.evaluate(test_inputs, test_labels)
+predict = model.predict(test_inputs)
+print(predict)
+plt.figure()
+#plt.scatter(test_labels, predict[:, 0], marker='.')
+plt.errorbar(test_labels, predict[:, 0], yerr=predict[:, 1], fmt='o', ecolor='r')
+plt.plot(np.linspace(220, 1100, 100), np.linspace(220, 1100, 100), '-k')
+plt.xlabel("True value")
+plt.ylabel("Predicted value")
+if args.nu == 0:
+    plt.title("MLP on cheap features")
+elif args.nu == 1:
+    plt.title("MLP on expensive features")
+plt.show()

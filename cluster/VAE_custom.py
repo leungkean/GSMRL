@@ -13,9 +13,9 @@ def load_data(fold=1, cheap=False):
     cheap_feat[cheap_feat==0] = -1.
     exp_feat = features[:,-8:]
     cheap_feat = np.array(cheap_feat, np.float32) + np.random.normal(0, 0.01, (features.shape[0], 222)).astype(np.float32)
-    top_20 = [127,  45, 193, 103, 116, 142, 138, 197,  92,   2,  93, 150, 129, 22,  60, 143, 115, 118,  15, 181]
-    top_20.sort()
-    cheap_feat = cheap_feat[:,top_20]
+    #top_20 = [127,  45, 193, 103, 116, 142, 138, 197,  92,   2,  93, 150, 129, 22,  60, 143, 115, 118,  15, 181]
+    #top_20.sort()
+    #cheap_feat = cheap_feat[:,top_20]
     exp_feat = np.array(features[:,-8:], np.float32).reshape((features.shape[0], 8))
 
     for i in range(exp_feat.shape[1]):
@@ -63,13 +63,13 @@ def elbo(mu0, Sigma0, mu1, Sigma1, decoder0, decoder1, q_logits, logits, cond0, 
     return q_probs[:,0]*(elbo_z0 + cond0) + q_probs[:,1]*(elbo_z1 + cond1) - kl_divergence_nu(q_logits, new_logits)
 
 class Decoder(tf.keras.Model):
-    def __init__(self, size, nu, nhidden_layers=3, hidden_size=256):
+    def __init__(self, size, nu, nhidden_layers=5, hidden_size=256):
         super(Decoder, self).__init__()
 
         self.size = size
         self.nu = nu
 
-        self.nn_layers = [tf.keras.layers.Dense(hidden_size, activation='relu', kernel_regularizer='l2') for i in range(nhidden_layers)]
+        self.nn_layers = [tf.keras.layers.Dense(hidden_size, activation='relu') for i in range(nhidden_layers)]
 
     def call(self, x, mu, Sigma):
         z_hat = tf.math.sqrt(Sigma) * tf.random.normal(tf.shape(mu)) + mu
@@ -79,7 +79,7 @@ class Decoder(tf.keras.Model):
         for i in range(1, len(self.nn_layers)):
             result = self.nn_layers[i](result)
 
-        mu_decoder = tf.math.abs(tf.keras.layers.Dense(self.size)(result))
+        mu_decoder = tf.keras.layers.Dense(self.size)(result)
         Sigma_decoder = tf.math.abs(tf.keras.layers.Dense(self.size)(result))
 
         prob1 = -0.5 * (self.size * tf.math.log(2*np.pi) + tf.math.reduce_sum(tf.math.log(Sigma_decoder+1e-8), axis=-1))
@@ -95,7 +95,7 @@ class Conditional(tf.keras.Model):
 
         self.nu = nu
 
-        self.nn_layers = [tf.keras.layers.Dense(hidden_size, activation='relu', kernel_regularizer='l2') for i in range(nhidden_layers)]
+        self.nn_layers = [tf.keras.layers.Dense(hidden_size, activation='relu') for i in range(nhidden_layers)]
 
     def call(self, x, y):
         nu_tensor = tf.zeros((tf.shape(x)[0], 1)) + self.nu
@@ -104,20 +104,22 @@ class Conditional(tf.keras.Model):
         for i in range(1, len(self.nn_layers)):
             result = self.nn_layers[i](result)
 
-        mu = tf.math.abs(tf.keras.layers.Dense(1)(result))
-        Sigma = tf.math.abs(tf.keras.layers.Dense(1)(result))
+        mu = tf.keras.layers.Dense(1)(result)
+        Sigma = tf.keras.layers.Dense(1)(result)
+        #Sigma = tf.keras.layers.Lambda(lambda x: tf.clip_by_norm(x, (x.shape[0]*200**2)**0.5))(Sigma) # Limit sigma to around 200
+        Sigma = tf.math.abs(Sigma)
 
-        prob = -0.5*tf.math.log(2*np.pi*Sigma**2) -0.5 * (y - mu)**2 / (Sigma**2 + 1e-8)
+        prob = -0.5*tf.math.log(2*np.pi*Sigma**2) -0.5 * (y - mu)**2 / (Sigma**2)
         return tf.reshape(prob, (tf.shape(prob)[0],))
 
 class Encoder(tf.keras.Model):
-    def __init__(self, size, nu, nhidden_layer=3, hidden_size=256):
+    def __init__(self, size, nu, nhidden_layer=5, hidden_size=256):
         super(Encoder, self).__init__()
 
         self.size = size
         self.nu = nu
 
-        self.nn_layers = [tf.keras.layers.Dense(hidden_size, activation='relu', kernel_regularizer='l2') for i in range(nhidden_layer)]
+        self.nn_layers = [tf.keras.layers.Dense(hidden_size, activation='relu') for i in range(nhidden_layer)]
 
     def call(self, x):
         nu_tensor = tf.zeros((tf.shape(x)[0], 1)) + self.nu
@@ -126,28 +128,27 @@ class Encoder(tf.keras.Model):
         for i in range(1, len(self.nn_layers)):
             result = self.nn_layers[i](result)
 
-        mu = tf.math.abs(tf.keras.layers.Dense(self.size)(result))
+        mu = tf.keras.layers.Dense(self.size)(result)
         Sigma = tf.math.abs(tf.keras.layers.Dense(self.size)(result))
 
         return mu, Sigma
 
-def custom_activation(x):
-    return tf.nn.tanh(x) * 0.5
-
 class VAE(tf.keras.Model):
-    def __init__(self, size, nhidden_layer=3, hidden_size=256):
+    def __init__(self, size, nhidden_layer=5, hidden_size=256):
         super(VAE, self).__init__()
 
         self.logits = tf.Variable(tf.constant([2.1972245, 0.0]), trainable=False, name='logits')
 
-        self.encoder0 = Encoder(size, 0)
+        # Here 0 is represented as -1
+        self.encoder0 = Encoder(size, -1)
         self.encoder1 = Encoder(size, 1)
-        self.decoder0 = Decoder(size, 0)
+        self.decoder0 = Decoder(size, -1)
         self.decoder1 = Decoder(size, 1)
-        self.conditional0 = Conditional(0)
-        self.conditional1 = Conditional(1)
+        self.conditional0 = Conditional(-1.)
+        self.conditional1 = Conditional(1.)
 
-        layers = [tf.keras.layers.Dense(hidden_size, activation='relu', kernel_regularizer='l2') for i in range(nhidden_layer)] + [tf.keras.layers.Dense(2, activation=custom_activation)]
+        layers = [tf.keras.layers.Dense(hidden_size, activation='relu', kernel_regularizer='l2') for i in range(nhidden_layer)] + [tf.keras.layers.Dense(2)]
+        #layers += [tf.keras.layers.Lambda(lambda x: tf.clip_by_norm(tf.math.abs(x), (x.shape[0]*3**2)**0.5))] # Limit sigma to around 2
         self.q_net = tf.keras.Sequential(layers)
 
     def call(self, xcheap, xfull, y):
@@ -178,7 +179,7 @@ if __name__ == "__main__":
     model = VAE(train_inputs.shape[1])
     model.load_weights('VAE_weights')
 
-    lr = 1e-5
+    lr = 5e-4
 
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
     steps = 1000000
@@ -188,7 +189,7 @@ if __name__ == "__main__":
         optimizer.apply_gradients(zip(grads, model.trainable_weights))
         if i % 100 == 0:
             print("Loss at step {:03d}: {:.5f}, Validation: {:.5f}".format(i, loss(model, cheap_train_inputs, train_inputs, train_labels), loss(model, cheap_valid_inputs, valid_inputs, valid_labels)))
-        if i % 20000 and i > 0:
+        if i % 100000 and i > 0:
             tf.keras.backend.set_value(optimizer.learning_rate, max(optimizer.learning_rate * 0.75, 1e-5))
 
     model.save_weights('VAE_weights')
