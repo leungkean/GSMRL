@@ -20,6 +20,10 @@ Full Dataset -
 Valid RMSE: 45.888824462890625
 Test RMSE: 47.64213562011719
 
+Psychology Dataset -
+Valid RMSE: 0.1228
+Test RMSE: 0.1136
+
 Neural Network Regression:
 
 solvent_20_cheap - 
@@ -41,3 +45,7 @@ Test RMSE: 52.3140
 Full Dataset - 
 Final Valid RMSE: 22.9303
 Test RMSE: 23.3357
+
+Psychology Dataset - 
+Final Valid RMSE: 0.1216
+Test RMSE: 0.1048

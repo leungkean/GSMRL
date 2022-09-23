@@ -29,9 +29,10 @@ def mlp():
 
     m = tf.keras.Sequential() 
     m.add(tf.keras.Input(shape=(data['train'][0].shape[1],))) 
+    m.add(tf.keras.layers.Normalization(axis=-1))
     for i in range(args.nhidden):
         m.add(tf.keras.layers.Dense(hidden_size, activation='relu')) 
-    m.add(tf.keras.layers.Dense(1, activation='linear'))
+    m.add(tf.keras.layers.Dense(9, activation='linear'))
 
     def rmse(y_true, y_pred): 
         return tf.sqrt(tf.reduce_mean(tf.square(y_pred - y_true)))

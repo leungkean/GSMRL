@@ -48,15 +48,15 @@ class Env(object):
         if init:
             self.dataset.initialize(self.sess)
         try:
-            self.x, self.y = self.sess.run([self.dataset.x, self.dataset.y])
-            self.m = np.zeros_like(self.x)
-            return self.x * self.m, self.m.copy()
+            self.x, self.y, self.exp = self.sess.run([self.dataset.x, self.dataset.y, self.dataset.exp])
+            self.m = np.zeros_like(self.x) 
+            return self.x * self.m, self.m.copy(), self.exp
         except:
             if loop:
                 self.dataset.initialize(self.sess)
-                self.x, self.y = self.sess.run([self.dataset.x, self.dataset.y])
-                self.m = np.zeros_like(self.x)
-                return self.x * self.m, self.m.copy()
+                self.x, self.y = self.sess.run([self.dataset.x, self.dataset.y, self.dataset.exp])
+                self.m = np.zeros_like(self.x) 
+                return self.x * self.m, self.m.copy(), self.exp
             else:
                 return None, None
 
@@ -64,7 +64,7 @@ class Env(object):
         '''
         calculate the MSE as reward
         '''
-        rmse_acflow = self.model.run(self.model.mse, 
+        rmse_acflow = self.model.run(self.model.rmse, 
                     feed_dict={self.model.x: x,
                                self.model.b: m,
                                self.model.m: m,
