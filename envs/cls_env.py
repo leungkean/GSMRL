@@ -41,10 +41,7 @@ class Env(object):
             # build dataset
             self.dataset = Dataset(hps.dfile, split, hps.episode_workers)
             self.dataset.initialize(self.sess)
-            if hasattr(self.dataset, 'cost'):
-                self.cost = self.dataset.cost
-            else:
-                self.cost = np.array([self.hps.acquisition_cost] * self.hps.dimension, dtype=np.float32)
+            self.cost = np.array([self.hps.acquisition_cost] * self.hps.dimension, dtype=np.float32)
 
     def reset(self, loop=True, init=False):
         '''
@@ -97,11 +94,11 @@ class Env(object):
 
         return ig
 
-    def step(self, action, prediction):      
+    def step(self, action, prediction, time):      
         # logger.info(f'self.x:  {self.x}')
         # logger.info(f'prediction:  {prediction}')
         empty = action == -1
-        terminal = action == self.terminal_act
+        terminal = np.logical_and(action == self.terminal_act, time == self.hps.window-1)
         normal = np.logical_and(~empty, ~terminal)
         reward = np.zeros([action.shape[0]], dtype=np.float32)
         done = np.zeros([action.shape[0]], dtype=np.bool)
@@ -118,15 +115,19 @@ class Env(object):
         if np.any(normal):
             x = self.x[normal]
             y = self.y[normal]
-            a = action[normal]
             m = self.m[normal]
-            old_m = m.copy()
-            assert np.all(old_m[np.arange(len(a)), a] == 0)
-            m[np.arange(len(a)), a] = 1.
-            self.m[normal] = m.copy() # explicitly update m
-            acquisition_cost = self.cost[a]
-            info_gain = self._info_gain(x, old_m, m, y)
-            reward[normal] = info_gain - acquisition_cost
+            if self.hps.dimension <= action and action < self.terminal_act:
+                p = prediction[normal]
+                reward[normal] = self._reg_reward(x, m, y, p)
+            else:
+                a = action[normal]
+                old_m = m.copy()
+                assert np.all(old_m[np.arange(len(a)), a] == 0)
+                m[np.arange(len(a)), a] = 1.
+                self.m[normal] = m.copy() # explicitly update m
+                acquisition_cost = self.cost[a]
+                info_gain = self._info_gain(x, old_m, m, y)
+                reward[normal] = info_gain - acquisition_cost
 
         #     sam = self.model.run(
         #         [self.model.sam],

@@ -18,6 +18,7 @@ class PPOPolicy(object):
         self.hps = hps
         self.env = env
         self.act_size = self.hps.act_size
+        self.time = 0
 
         g = tf.Graph()
         with g.as_default():
@@ -76,10 +77,32 @@ class PPOPolicy(object):
         # for i, vals in enumerate(probas):
         #     for j, val in enumerate(vals):
         #         probas[i][j] = probas[i][j] / sum[i]    
+        temp_act = []
+        act_mask = np.zeros(probas[0].shape[0])
+        window_size = self.hps.dimension//self.hps.window
+        valid_act = 0
         if hard:
-            action = np.array([np.argmax(p) for p in probas])
+            for p in probas:
+                act_mask[self.time*window_size:(self.time+1)*window_size] = 1
+                act_mask[self.hps.dimension] = 1
+                valid_act = np.argmax(p*act_mask)
+                temp_act.append(valid_act)
+                if valid_act == self.hps.dimension:
+                    self.time = (self.time+1) % self.hps.window
+                act_mask = np.zeros(probas[0].shape[0])
+            #action = np.array([np.argmax(p) for p in probas])
+            action = np.array(temp_act)
         else:
-            action = np.array([np.random.choice(self.act_size, p=p) for p in probas])
+            for p in probas:
+                act_mask[self.time*window_size:(self.time+1)*window_size] = 1
+                act_mask[self.hps.dimension] = 1
+                valid_act = np.random.choice(self.act_size, p=(p*act_mask)/(np.sum(p*act_mask)))
+                temp_act.append(valid_act)
+                if valid_act == self.hps.dimension:
+                    self.time = (self.time+1) % self.hps.window
+                act_mask = np.zeros(probas[0].shape[0])
+            #action = np.array([np.random.choice(self.act_size, p=p) for p in probas])
+            action = np.array(temp_act)
 
         return action, prediction
 
@@ -94,11 +117,11 @@ class PPOPolicy(object):
 
     def _build_networks(self):
         d = self.hps.dimension
-        self.state = tf.placeholder(tf.float32, shape=[None, self.window*d], name='state')
+        self.state = tf.placeholder(tf.float32, shape=[None, d], name='state')
         self.mask = tf.placeholder(tf.float32, shape=[None, d], name='mask')
         self.future = tf.placeholder(tf.float32, shape=[None, d*self.env.n_future], name='future')
         self.action = tf.placeholder(tf.int32, shape=[None], name='action')
-        self.next_state = tf.placeholder(tf.float32, shape=[None, self.window*d], name='next_state')
+        self.next_state = tf.placeholder(tf.float32, shape=[None, d], name='next_state')
         self.reward = tf.placeholder(tf.float32, shape=[None], name='reward')
         self.done = tf.placeholder(tf.float32, shape=[None], name='done_flag')
 
@@ -139,7 +162,7 @@ class PPOPolicy(object):
                 logits_mask = tf.where(tf.equal(cum_mask, 0.), tf.zeros_like(logits_mask), tf.ones_like(logits_mask))
                 logits_mask = tf.concat([logits_mask, tf.zeros([tf.shape(self.mask)[0], 1])], axis=1)
             elif hasattr(self.env, 'terminal_act'):
-                assert self.act_size == d + 1
+                #assert self.act_size == d + 1
                 logits_mask = tf.concat([self.mask, tf.zeros([tf.shape(self.mask)[0], 1])], axis=1)
             else:
                 assert self.act_size == d
@@ -270,7 +293,7 @@ class PPOPolicy(object):
             logger.debug(f'action: {a_orig}')
             a = a_orig.copy()
             a[done] = -1 # empty action
-            s_next, m_next, r, done = self.env.step(a, p)
+            s_next, m_next, r, done = self.env.step(a, p, self.time)
             logger.debug(f'done: {done}')
             obs.append(s)
             masks.append(m)
@@ -480,7 +503,7 @@ class PPOPolicy(object):
                 f = self.env.peek(s, m)
                 a, p = self.act(s, m, f, hard=hard)
                 a[done] = -1
-                s, m, r, done = self.env.step(a, p)
+                s, m, r, done = self.env.step(a, p, self.time)
                 episode_reward += r
                 num_acquisition += ~done
                 transition += m
