@@ -33,7 +33,7 @@ class PPOPolicy(object):
             # initialize
             self.sess.run(tf.global_variables_initializer())
             self.saver = tf.train.Saver()
-            self.writer = tf.summary.FileWriter(self.hps.exp_dir + '/summary')
+            #self.writer = tf.summary.FileWriter(self.hps.exp_dir + '/summary')
 
     def save(self, filename='params'):
         fname = f'{self.hps.exp_dir}/weights/{filename}.ckpt'
@@ -94,11 +94,11 @@ class PPOPolicy(object):
 
     def _build_networks(self):
         d = self.hps.dimension
-        self.state = tf.placeholder(tf.float32, shape=[None, d], name='state')
+        self.state = tf.placeholder(tf.float32, shape=[None, self.window*d], name='state')
         self.mask = tf.placeholder(tf.float32, shape=[None, d], name='mask')
         self.future = tf.placeholder(tf.float32, shape=[None, d*self.env.n_future], name='future')
         self.action = tf.placeholder(tf.int32, shape=[None], name='action')
-        self.next_state = tf.placeholder(tf.float32, shape=[None, d], name='next_state')
+        self.next_state = tf.placeholder(tf.float32, shape=[None, self.window*d], name='next_state')
         self.reward = tf.placeholder(tf.float32, shape=[None], name='reward')
         self.done = tf.placeholder(tf.float32, shape=[None], name='done_flag')
 
@@ -184,7 +184,7 @@ class PPOPolicy(object):
             if self.hps.clip_grad_norm > 0:
                 grads_a, gnorm_a = tf.clip_by_global_norm(grads_a, clip_norm=self.hps.clip_grad_norm)
                 gnorm_a = tf.check_numerics(gnorm_a, "Gradient norm is NaN or Inf.")
-                tf.summary.scalar('gnorm_a', gnorm_a)
+                #tf.summary.scalar('gnorm_a', gnorm_a)
             grads_and_vars = zip(grads_a, vars_a)
             self.train_op_a = optim_a.apply_gradients(grads_and_vars)
 
@@ -202,7 +202,7 @@ class PPOPolicy(object):
             if self.hps.clip_grad_norm > 0:
                 grads_p, gnorm_p = tf.clip_by_global_norm(grads_p, clip_norm=self.hps.clip_grad_norm)
                 gnorm_p = tf.check_numerics(gnorm_p, "Gradient norm is NaN or Inf.")
-                tf.summary.scalar('gnorm_p', gnorm_p)
+                #tf.summary.scalar('gnorm_p', gnorm_p)
             grads_and_vars = zip(grads_p, vars_p)
             self.train_op_p = optim_p.apply_gradients(grads_and_vars)
 
@@ -215,12 +215,13 @@ class PPOPolicy(object):
             if self.hps.clip_grad_norm > 0:
                 grads_c, gnorm_c = tf.clip_by_global_norm(grads_c, clip_norm=self.hps.clip_grad_norm)
                 gnorm_c = tf.check_numerics(gnorm_c, "Gradient norm is NaN or Inf.")
-                tf.summary.scalar('gnorm_c', gnorm_c)
+                #tf.summary.scalar('gnorm_c', gnorm_c)
             grads_and_vars = zip(grads_c, vars_c)
             self.train_op_c = optim_c.apply_gradients(grads_and_vars)
 
         self.train_ops = tf.group(self.train_op_a, self.train_op_p, self.train_op_c)
 
+        """
         with tf.variable_scope('summary'):
             self.ep_reward = tf.placeholder(tf.float32, name='episode_reward')
 
@@ -248,6 +249,7 @@ class PPOPolicy(object):
                             for g in grads_c if g is not None]
 
             self.merged_summary = tf.summary.merge_all(key=tf.GraphKeys.SUMMARIES)
+        """
 
     def _generate_rollout(self, buffer):
         s, m = self.env.reset() # [B,d]
@@ -422,29 +424,6 @@ class PPOPolicy(object):
             reward_history.append(ep_reward)
             reward_averaged.append(np.mean(reward_history[-10:]))
             total_rec += n_rec
-
-            for batch in buffer.loop(self.hps.batch_size, self.hps.epochs):
-                _, summ_str = self.sess.run(
-                 [self.train_ops, self.merged_summary],
-                 feed_dict={self.lr_a: self.hps.lr_a,
-                            self.lr_p: self.hps.lr_p,
-                            self.lr_c: self.hps.lr_c,
-                            self.clip_range: clip,
-                            self.state: batch['s'],
-                            self.mask: batch['m'],
-                            self.future: batch['f'],
-                            self.action: batch['a'],
-                            self.next_state: batch['s_next'],
-                            self.reward: batch['r'],
-                            self.done: batch['done'],
-                            self.old_logp_a: batch['old_logp_a'],
-                            self.p_target: batch['y'],
-                            self.v_target: batch['v_target'],
-                            self.adv: batch['adv'],
-                            self.ep_reward: np.mean(reward_history[-10:]) if reward_history else 0.0,
-                            })
-                self.writer.add_summary(summ_str, step)
-                step += 1
 
             if self.hps.finetune_env == 1:
                 for batch in buffer.loop(self.hps.finetune_batch_size, self.hps.finetune_epochs):
