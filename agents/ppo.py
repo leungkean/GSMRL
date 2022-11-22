@@ -18,6 +18,7 @@ class PPOPolicy(object):
         self.hps = hps
         self.env = env
         self.act_size = self.hps.act_size
+        self.time = 0
 
         g = tf.Graph()
         with g.as_default():
@@ -33,7 +34,7 @@ class PPOPolicy(object):
             # initialize
             self.sess.run(tf.global_variables_initializer())
             self.saver = tf.train.Saver()
-            self.writer = tf.summary.FileWriter(self.hps.exp_dir + '/summary')
+            #self.writer = tf.summary.FileWriter(self.hps.exp_dir + '/summary')
 
     def save(self, filename='params'):
         fname = f'{self.hps.exp_dir}/weights/{filename}.ckpt'
@@ -76,10 +77,32 @@ class PPOPolicy(object):
         # for i, vals in enumerate(probas):
         #     for j, val in enumerate(vals):
         #         probas[i][j] = probas[i][j] / sum[i]    
+        temp_act = []
+        act_mask = np.zeros(probas[0].shape[0])
+        window_size = self.hps.dimension//self.hps.window
+        valid_act = 0
         if hard:
-            action = np.array([np.argmax(p) for p in probas])
+            for p in probas:
+                act_mask[self.time*window_size:(self.time+1)*window_size] = 1
+                act_mask[self.hps.dimension] = 1
+                valid_act = np.argmax(p*act_mask)
+                temp_act.append(valid_act)
+                if valid_act == self.hps.dimension:
+                    self.time = (self.time+1) % self.hps.window
+                act_mask = np.zeros(probas[0].shape[0])
+            #action = np.array([np.argmax(p) for p in probas])
+            action = np.array(temp_act)
         else:
-            action = np.array([np.random.choice(self.act_size, p=p) for p in probas])
+            for p in probas:
+                act_mask[self.time*window_size:(self.time+1)*window_size] = 1
+                act_mask[self.hps.dimension] = 1
+                valid_act = np.random.choice(self.act_size, p=(p*act_mask)/(np.sum(p*act_mask)))
+                temp_act.append(valid_act)
+                if valid_act == self.hps.dimension:
+                    self.time = (self.time+1) % self.hps.window
+                act_mask = np.zeros(probas[0].shape[0])
+            #action = np.array([np.random.choice(self.act_size, p=p) for p in probas])
+            action = np.array(temp_act)
 
         return action, prediction
 
@@ -139,7 +162,7 @@ class PPOPolicy(object):
                 logits_mask = tf.where(tf.equal(cum_mask, 0.), tf.zeros_like(logits_mask), tf.ones_like(logits_mask))
                 logits_mask = tf.concat([logits_mask, tf.zeros([tf.shape(self.mask)[0], 1])], axis=1)
             elif hasattr(self.env, 'terminal_act'):
-                assert self.act_size == d + 1
+                #assert self.act_size == d + 1
                 logits_mask = tf.concat([self.mask, tf.zeros([tf.shape(self.mask)[0], 1])], axis=1)
             else:
                 assert self.act_size == d
@@ -184,7 +207,7 @@ class PPOPolicy(object):
             if self.hps.clip_grad_norm > 0:
                 grads_a, gnorm_a = tf.clip_by_global_norm(grads_a, clip_norm=self.hps.clip_grad_norm)
                 gnorm_a = tf.check_numerics(gnorm_a, "Gradient norm is NaN or Inf.")
-                tf.summary.scalar('gnorm_a', gnorm_a)
+                #tf.summary.scalar('gnorm_a', gnorm_a)
             grads_and_vars = zip(grads_a, vars_a)
             self.train_op_a = optim_a.apply_gradients(grads_and_vars)
 
@@ -202,7 +225,7 @@ class PPOPolicy(object):
             if self.hps.clip_grad_norm > 0:
                 grads_p, gnorm_p = tf.clip_by_global_norm(grads_p, clip_norm=self.hps.clip_grad_norm)
                 gnorm_p = tf.check_numerics(gnorm_p, "Gradient norm is NaN or Inf.")
-                tf.summary.scalar('gnorm_p', gnorm_p)
+                #tf.summary.scalar('gnorm_p', gnorm_p)
             grads_and_vars = zip(grads_p, vars_p)
             self.train_op_p = optim_p.apply_gradients(grads_and_vars)
 
@@ -215,12 +238,13 @@ class PPOPolicy(object):
             if self.hps.clip_grad_norm > 0:
                 grads_c, gnorm_c = tf.clip_by_global_norm(grads_c, clip_norm=self.hps.clip_grad_norm)
                 gnorm_c = tf.check_numerics(gnorm_c, "Gradient norm is NaN or Inf.")
-                tf.summary.scalar('gnorm_c', gnorm_c)
+                #tf.summary.scalar('gnorm_c', gnorm_c)
             grads_and_vars = zip(grads_c, vars_c)
             self.train_op_c = optim_c.apply_gradients(grads_and_vars)
 
         self.train_ops = tf.group(self.train_op_a, self.train_op_p, self.train_op_c)
 
+        """
         with tf.variable_scope('summary'):
             self.ep_reward = tf.placeholder(tf.float32, name='episode_reward')
 
@@ -248,6 +272,7 @@ class PPOPolicy(object):
                             for g in grads_c if g is not None]
 
             self.merged_summary = tf.summary.merge_all(key=tf.GraphKeys.SUMMARIES)
+        """
 
     def _generate_rollout(self, buffer):
         s, m = self.env.reset() # [B,d]
@@ -268,7 +293,7 @@ class PPOPolicy(object):
             logger.debug(f'action: {a_orig}')
             a = a_orig.copy()
             a[done] = -1 # empty action
-            s_next, m_next, r, done = self.env.step(a, p)
+            s_next, m_next, r, done = self.env.step(a, p, self.time)
             logger.debug(f'done: {done}')
             obs.append(s)
             masks.append(m)
@@ -423,29 +448,6 @@ class PPOPolicy(object):
             reward_averaged.append(np.mean(reward_history[-10:]))
             total_rec += n_rec
 
-            for batch in buffer.loop(self.hps.batch_size, self.hps.epochs):
-                _, summ_str = self.sess.run(
-                 [self.train_ops, self.merged_summary],
-                 feed_dict={self.lr_a: self.hps.lr_a,
-                            self.lr_p: self.hps.lr_p,
-                            self.lr_c: self.hps.lr_c,
-                            self.clip_range: clip,
-                            self.state: batch['s'],
-                            self.mask: batch['m'],
-                            self.future: batch['f'],
-                            self.action: batch['a'],
-                            self.next_state: batch['s_next'],
-                            self.reward: batch['r'],
-                            self.done: batch['done'],
-                            self.old_logp_a: batch['old_logp_a'],
-                            self.p_target: batch['y'],
-                            self.v_target: batch['v_target'],
-                            self.adv: batch['adv'],
-                            self.ep_reward: np.mean(reward_history[-10:]) if reward_history else 0.0,
-                            })
-                self.writer.add_summary(summ_str, step)
-                step += 1
-
             if self.hps.finetune_env == 1:
                 for batch in buffer.loop(self.hps.finetune_batch_size, self.hps.finetune_epochs):
                     self.env.finetune(batch)
@@ -501,7 +503,7 @@ class PPOPolicy(object):
                 f = self.env.peek(s, m)
                 a, p = self.act(s, m, f, hard=hard)
                 a[done] = -1
-                s, m, r, done = self.env.step(a, p)
+                s, m, r, done = self.env.step(a, p, self.time)
                 episode_reward += r
                 num_acquisition += ~done
                 transition += m
