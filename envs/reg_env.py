@@ -73,19 +73,24 @@ class Env(object):
                                self.model.m: m,
                                self.model.y: y})
         """
-        ########## NEW ##########
+        ############################ NEW ############################
         rmse_acflow_list = self.model.run(self.model.rmse_list,
                     feed_dict={self.model.x: x,
                                self.model.b: m,
                                self.model.m: m,
                                self.model.y: y})
-        ########## NEW ##########
 
         rmse_acflow = np.zeros(x.shape[0])
         for i in range(x.shape[0]):
             rmse_acflow[i] = rmse_acflow_list[time[i]][i]
 
-        rmse_policy = np.sqrt(np.mean(np.square(p-y), axis=-1))
+        window_size = self.hps.n_target//self.hps.window
+        rmse_policy_list = [np.sqrt(np.mean(np.square(p[:, i*window_size:(i+1)*window_size] - y[:, i*window_size:(i+1)*window_size]), axis=1)) for i in range(self.hps.window)]
+
+        rmse_policy = np.zeros(x.shape[0])
+        for i in range(x.shape[0]):
+            rmse_policy[i] = rmse_policy_list[time[i]][i]
+        ############################ NEW ############################
 
         rmse = np.minimum(rmse_acflow, rmse_policy)
         
