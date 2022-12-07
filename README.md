@@ -20,7 +20,7 @@ Download your training data into the data folder. You need to convert the data f
 <br />
 You need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
-### Generalizing GSMRL for Time Labeled Data
+## Generalizing GSMRL for Time Labeled Data
 
 The psychology dataset (found in `data/psych_GSMRL.pkl`) is a dataset used to study the
 short-term stability and fluctuation of personality pathology. 
@@ -48,7 +48,7 @@ The acquisition process stops when all target variables are predicted.
 The aim of this setup is to enable the RL agent to use information from previous days to improve the
 acquisition process and prediction of the current day in question.
 
-#### Implementation Details
+### Implementation Details
 
 1. The code used for the surrogate model in 
 [`acflow_regressor.py`](https://github.com/leungkean/GSMRL/blob/main/models/acflow_regressor.py) 
