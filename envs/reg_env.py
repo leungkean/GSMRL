@@ -62,15 +62,28 @@ class Env(object):
             else:
                 return None, None
 
-    def _reg_reward(self, x, m, y, p):
+    def _reg_reward(self, x, m, y, p, time):
         '''
         calculate the MSE as reward
         '''
+        """
         rmse_acflow = self.model.run(self.model.rmse, 
                     feed_dict={self.model.x: x,
                                self.model.b: m,
                                self.model.m: m,
                                self.model.y: y})
+        """
+        ########## NEW ##########
+        rmse_acflow_list = self.model.run(self.model.rmse_list,
+                    feed_dict={self.model.x: x,
+                               self.model.b: m,
+                               self.model.m: m,
+                               self.model.y: y})
+        ########## NEW ##########
+
+        rmse_acflow = np.zeros(x.shape[0])
+        for i in range(x.shape[0]):
+            rmse_acflow[i] = rmse_acflow_list[time[i]][i]
 
         rmse_policy = np.sqrt(np.mean(np.square(p-y), axis=-1))
 
@@ -103,7 +116,8 @@ class Env(object):
     def step(self, action, prediction, time):
         empty = action == -1
         terminal = np.logical_and(action == self.terminal_act, time == self.hps.window-1)
-        normal = np.logical_and(~empty, ~terminal)
+        inter_pred = np.logical_and(action == self.terminal_act, ~(time == self.hps.window-1))
+        normal = np.logical_and(np.logical_and(~empty, ~terminal), ~inter_pred)
         reward = np.zeros([action.shape[0]], dtype=np.float32)
         done = np.zeros([action.shape[0]], dtype=np.bool)
         if np.any(empty):
@@ -115,26 +129,33 @@ class Env(object):
             y = self.y[terminal]
             m = self.m[terminal]
             p = prediction[terminal]
-            reward[terminal] = self._reg_reward(x, m, y, p)
+            reward_time = time[terminal]
+            assert np.all(reward_time == self.hps.window-1)
+            reward[terminal] = self._reg_reward(x, m, y, p, reward_time)
+        if np.any(inter_pred): 
+            done[inter_pred] = False
+            x = self.x[inter_pred] 
+            y = self.y[inter_pred] 
+            m = self.m[inter_pred] 
+            p = prediction[inter_pred]
+            reward_time = time[inter_pred]
+            assert np.all(reward_time < self.hps.window-1)
+            reward[inter_pred] = self._reg_reward(x, m, y, p, reward_time)
         if np.any(normal):
+            done[normal] = False
             x = self.x[normal]
             y = self.y[normal]
-            m = self.m[normal]
-            # Intermediate prediction at time t < window
-            if np.any(action == self.terminal_act):
-                p = prediction[normal]
-                reward[normal] = self._reg_reward(x, m, y, p)
-            else:
-                a = action[normal]
-                old_m = m.copy()
-                assert np.all(old_m[np.arange(len(a)), a] == 0)
-                m[np.arange(len(a)), a] = 1.
-                self.m[normal] = m.copy() # explicitly update m
-                acquisition_cost = self.cost[a]
-                info_gain = self._info_gain(x, old_m, m, y)
-                reward[normal] = info_gain - acquisition_cost
+            m = self.m[normal] 
+            a = action[normal] 
+            old_m = m.copy() 
+            assert np.all(old_m[np.arange(len(a)), a] == 0) 
+            m[np.arange(len(a)), a] = 1. 
+            self.m[normal] = m.copy() # explicitly update m 
+            acquisition_cost = self.cost[a] 
+            info_gain = self._info_gain(x, old_m, m, y) 
+            reward[normal] = info_gain - acquisition_cost
 
-        return self.x * self.m, self.m.copy(), reward, done
+        return self.x * self.m, self.m.copy(), reward, done, reward[inter_pred]
 
     def peek(self, state, mask):
         y_sam, sam, pred_sam = self.model.run(
