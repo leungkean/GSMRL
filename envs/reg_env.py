@@ -118,6 +118,7 @@ class Env(object):
 
         return ig
 
+    ############################ NEW ############################
     def step(self, action, prediction, time):
         empty = action == -1
         terminal = np.logical_and(action == self.terminal_act, time == self.hps.window-1)
@@ -161,6 +162,7 @@ class Env(object):
             reward[normal] = info_gain - acquisition_cost
 
         return self.x * self.m, self.m.copy(), reward, done, reward[inter_pred]
+    ############################ NEW ############################
 
     def peek(self, state, mask):
         y_sam, sam, pred_sam = self.model.run(
