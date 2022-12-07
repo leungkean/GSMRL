@@ -20,9 +20,9 @@ Download your training data into the data folder. You need to convert the data f
 <br />
 You need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
-#### Nested Cross-Validation
+<!---#### Nested Cross-Validation
 
-To ensure that training the surrogate model runs in a reasonble (2-3 hours) amount of time, I decided to use nested cross validation to determine the top 20 cheap features for testing, training and evaluation. Here, the model I used was an MLP with 3 hidden layers and 300 hidden units, and the hyperparameters are the binary masks used to select the features. In nested cross-validation, I used a 3 fold inner cross-validation to select the best binary mask, and a 10 fold outer cross-validation for evaluation.
+To ensure that training the surrogate model runs in a reasonble (2-3 hours) amount of time, I decided to use nested cross validation to determine the top 20 cheap features for testing, training and evaluation. Here, the model I used was an MLP with 3 hidden layers and 300 hidden units, and the hyperparameters are the binary masks used to select the features. In nested cross-validation, I used a 3 fold inner cross-validation to select the best binary mask, and a 10 fold outer cross-validation for evaluation.--->
 
 #### Chemistry Dataset with Top 20 Features (Classification)
 
@@ -103,9 +103,9 @@ python scripts/train_agent.py --cfg_file=./exp/ppo/[dataset]/params.json --env r
 
 <!---### Variational GMM--->
 
-<!---We treat the data as a GMM and optimize the parameters to cluster the dataset into two mixture components:---> 
-<!---one acquires only cheap features (z = 0) and the other component acquires both cheap and expensive features (z = 1).---> 
-<!---In this case, we initialize the prior p(z) such that only cheap features are acquired around 10% of the time.--->
+We treat the data as a GMM and optimize the parameters to cluster the dataset into two mixture components:
+one acquires only cheap features (z = 0) and the other component acquires both cheap and expensive features (z = 1).
+In this case, we initialize the prior p(z) such that only cheap features are acquired around 10% of the time.--->
 
 ### Results
 
