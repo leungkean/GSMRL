@@ -18,7 +18,9 @@ class PPOPolicy(object):
         self.hps = hps
         self.env = env
         self.act_size = self.hps.act_size
-        self.time = 0
+        s, m = self.env.reset()
+        self.time_size = s.shape[0]
+        self.time = np.zeros(self.time_size, dtype=np.int)
 
         g = tf.Graph()
         with g.as_default():
@@ -50,6 +52,7 @@ class PPOPolicy(object):
             fname = f'{self.hps.exp_dir}/weights/env_{filename}.ckpt'
             self.env.saver.restore(self.env.sess, fname)
 
+    ############################ New ############################
     def act(self, state, mask, future, hard=False):
         '''
         state: [B,d] observed dimensions with values
@@ -77,34 +80,35 @@ class PPOPolicy(object):
         # for i, vals in enumerate(probas):
         #     for j, val in enumerate(vals):
         #         probas[i][j] = probas[i][j] / sum[i]    
-        temp_act = []
-        act_mask = np.zeros(probas[0].shape[0])
+        action = np.zeros(probas.shape[0], dtype=np.int)
+        act_mask = np.zeros(self.act_size)
         window_size = self.hps.dimension//self.hps.window
-        valid_act = 0
         if hard:
-            for p in probas:
-                act_mask[self.time*window_size:(self.time+1)*window_size] = 1
+            for i in range(probas.shape[0]):
+                # Mask valid actions for the current window
+                act_mask[self.time[i]*window_size:(self.time[i]+1)*window_size] = 1
                 act_mask[self.hps.dimension] = 1
-                valid_act = np.argmax(p*act_mask)
-                temp_act.append(valid_act)
-                if valid_act == self.hps.dimension:
-                    self.time = (self.time+1) % self.hps.window
-                act_mask = np.zeros(probas[0].shape[0])
+                action[i] = np.argmax(probas[i]*act_mask)
+                act_mask = np.zeros(self.act_size)
             #action = np.array([np.argmax(p) for p in probas])
-            action = np.array(temp_act)
         else:
-            for p in probas:
-                act_mask[self.time*window_size:(self.time+1)*window_size] = 1
+            for i in range(probas.shape[0]):
+                # Mask valid actions for the current window
+                act_mask[self.time[i]*window_size:(self.time[i]+1)*window_size] = 1
                 act_mask[self.hps.dimension] = 1
-                valid_act = np.random.choice(self.act_size, p=(p*act_mask)/(np.sum(p*act_mask)))
-                temp_act.append(valid_act)
-                if valid_act == self.hps.dimension:
-                    self.time = (self.time+1) % self.hps.window
-                act_mask = np.zeros(probas[0].shape[0])
+                new_probas = (probas[i]+1e-8)*act_mask/np.sum((probas[i]+1e-8)*act_mask)
+                action[i] = np.random.choice(self.act_size, p=new_probas)
+                act_mask = np.zeros(self.act_size)
             #action = np.array([np.random.choice(self.act_size, p=p) for p in probas])
-            action = np.array(temp_act)
 
         return action, prediction
+
+    def update_time(self, action):
+        for i in range(action.shape[0]):
+            if action[i] == self.hps.act_size-1:
+                self.time[i] = (self.time[i]+1) % self.hps.window
+
+    ############################ New ############################
 
     def scope_vars(self, scope, only_trainable=True):
         collection = tf.GraphKeys.TRAINABLE_VARIABLES if only_trainable else tf.GraphKeys.VARIABLES
@@ -293,7 +297,10 @@ class PPOPolicy(object):
             logger.debug(f'action: {a_orig}')
             a = a_orig.copy()
             a[done] = -1 # empty action
-            s_next, m_next, r, done = self.env.step(a, p, self.time)
+            s_next, m_next, r, done, _ = self.env.step(a, p, self.time)
+            ############ NEW ############
+            self.update_time(a) # update time
+            ############ NEW ############
             logger.debug(f'done: {done}')
             obs.append(s)
             masks.append(m)
@@ -471,6 +478,8 @@ class PPOPolicy(object):
                 best_reward = np.mean(reward_history[-10:])
                 self.save('best')
 
+            self.time = np.zeros(self.time_size, dtype=np.int)
+
         # FINISH
         self.save()
         logger.info("[FINAL] episodes: {}, Max reward: {}, Average reward: {}".format(
@@ -490,6 +499,7 @@ class PPOPolicy(object):
         while True: # iterate over dataset
             num_batches += 1
             s, m = self.env.reset(loop=False, init=init)
+            self.time = np.zeros(s.shape[0], np.int)
             init = False
             if s is None or m is None:
                 break # stop iteration
@@ -503,10 +513,14 @@ class PPOPolicy(object):
                 f = self.env.peek(s, m)
                 a, p = self.act(s, m, f, hard=hard)
                 a[done] = -1
-                s, m, r, done = self.env.step(a, p, self.time)
+                s, m, r, done, inter_reward = self.env.step(a, p, self.time)
+                ###### NEW ######
+                self.update_time(a) # update time
+                #################
                 episode_reward += r
                 num_acquisition += ~done
                 transition += m
+                metrics['intermediate RMSE'].append(list(inter_reward))
             metrics['episode_reward'].append(episode_reward)
             metrics['num_acquisition'].append(num_acquisition)
             transitions.append(transition.astype(np.int32))
@@ -514,6 +528,8 @@ class PPOPolicy(object):
             eval_dict = self.env.evaluate(s, m, p)
             for k, v in eval_dict.items():
                 metrics[k].append(v)
+
+            self.time = np.zeros(s.shape[0], np.int)
 
         # concat metrics
         average_metrics = defaultdict(float)

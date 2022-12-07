@@ -54,6 +54,10 @@ class Model(object):
         mean_y = self.flow.mean(xy, by, my)
         self.mean_y = mean_y[:,-Nt:]
         self.rmse = tf.math.sqrt(tf.reduce_sum(tf.square(self.mean_y - self.y), axis=1))
+        ########## NEW ##########
+        window_size = self.hps.n_target//self.hps.window
+        self.rmse_list = [tf.math.sqrt(tf.reduce_sum(tf.square(self.mean_y[:, i*window_size: (i+1)*window_size] - self.y[:, i*window_size: (i+1)*window_size]), axis=1)) for i in range(self.hps.window)]
+        ########## NEW ##########
 
         # log p(x_u, y | x_o)
         bj = tf.concat([self.b, tf.zeros((B,Nt),dtype=tf.float32)], axis=1)
