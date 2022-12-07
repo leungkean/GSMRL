@@ -64,7 +64,7 @@ Furthermore, I have included a small function to update the time that determines
 the agent is currently in called [`update_time`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/agents/ppo.py#L106).
 3. The regression environment found in [`reg_env.py`](https://github.com/leungkean/GSMRL/blob/main/envs/reg_env.py)
 has been modified so that the [`step`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/envs/reg_env.py#L116)
-function allows for intermediate prediction and the [prediction reward function](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/envs/reg_env.py#L65)
+function allows for intermediate prediction and the prediction reward function [`_reg_reward`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/envs/reg_env.py#L65)
 has been modified to only give RMSE for the particular day.
 
 <!---#### Nested Cross-Validation
