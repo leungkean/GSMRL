@@ -20,11 +20,58 @@ Download your training data into the data folder. You need to convert the data f
 <br />
 You need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
+### Generalizing GSMRL for Time Labeled Data
+
+The psychology dataset (found in `data/psych_GSMRL.pkl`) is a dataset used to study the
+short-term stability and fluctuation of personality pathology. 
+The dataset contains collected 30 daily ratings of manifestations of personality pathology (DPDS)
+rom 116 individuals over the course of 102 consecutive days.
+The 30 DPDS ratings were then aggregated using multilayer factor analysis (MFA) and model fit statistics to create 9 daily domain scale.
+Scores of each domain scale are used as the target variable y in the AFA regression problem.
+
+Typically in AFA, we only observe and acquire features for a particular data instance.
+However, an area of interest is to use the acquired features that predict target variables from a previous day
+to help in the acquisition and prediction process for the current time.
+As such, I have modified the code for this specific purpose.
+
+The key idea is to first modify the dataset so that survey features and target variables over
+a certain time interval or window for a given individual are combined into one large feature and target vector.
+The time window is defined as the interval over `n` days, where `n` is manually entered by the user.
+Using this modified dataset, I train the surrogate ACFlow model to learn the dependencies between
+the combined features and target variables.
+Afterwards, I train the RL with the surrogate model using PPO.
+To mimic a machine detective, the RL agent is restricted to only being able to acquire features from a single day.
+Only when the agent decides to make a prediction on the target variables for that particular day can it
+move on to acquiring features for the next day.
+Furthermore, the RL agent cannot go back in time and acquire more features.
+The acquisition process stops when all target variables are predicted.
+The aim of this setup is to enable the RL agent to use information from previous days to improve the
+acquisition process and prediction of the current day in question.
+
+#### Implementation Details
+
+1. The code used for the surrogate model in 
+[`acflow_regressor.py`](https://github.com/leungkean/GSMRL/blob/main/models/acflow_regressor.py) 
+was modified such that not only is the RMSE (root-mean squared error) for a single data instance given, 
+but the RMSE for all days in a single data instance are also provided.
+The RMSE for all days in the time window is given in [`rmse_list`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/models/acflow_regressor.py#L59).
+2. The main python file to train the RL agent, [`ppo.py`](https://github.com/leungkean/GSMRL/blob/main/agents/ppo.py)
+is modified such that the function [`act`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/agents/ppo.py#L56)
+that determines which action to take only allows features from the current day to be acquired.
+Only when the agent decides to take make a prediction for the current day does it allow the acquisition
+of features for the next day. The acquisition process stops when all target variables are predicted.
+Furthermore, I have included a small function to update the time that determines which time window
+the agent is currently in called [`update_time`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/agents/ppo.py#L106).
+3. The regression environment found in [`reg_env.py`](https://github.com/leungkean/GSMRL/blob/main/envs/reg_env.py)
+has been modified so that the [`step`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/envs/reg_env.py#L116)
+function allows for intermediate prediction and the [prediction reward function](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/envs/reg_env.py#L65)
+has been modified to only give RMSE for the particular day.
+
 <!---#### Nested Cross-Validation
 
 To ensure that training the surrogate model runs in a reasonble (2-3 hours) amount of time, I decided to use nested cross validation to determine the top 20 cheap features for testing, training and evaluation. Here, the model I used was an MLP with 3 hidden layers and 300 hidden units, and the hyperparameters are the binary masks used to select the features. In nested cross-validation, I used a 3 fold inner cross-validation to select the best binary mask, and a 10 fold outer cross-validation for evaluation.--->
 
-#### Chemistry Dataset with Top 20 Features (Classification)
+<!---#### Chemistry Dataset with Top 20 Features (Classification)
 
 - `molecule_20`: <br /> Dataset with top 20 features determined using nested CV.
 
@@ -51,7 +98,7 @@ To ensure that training the surrogate model runs in a reasonble (2-3 hours) amou
 
 ## Baselines
 
-The `baselines` folder contains both the linear least squares and neural network models. <br /> We use these two models to set a baseline RMSE for training on the full chemistry cheap/expensive dataset (solvent). 
+The `baselines` folder contains both the linear least squares and neural network models. <br /> We use these two models to set a baseline RMSE for training on the full chemistry cheap/expensive dataset (solvent). --->
 
 ## Train and Test
 
