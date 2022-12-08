@@ -184,5 +184,12 @@ to ask before making a prediction.
 The keys are the index of the particular data instance and the values are the tuples
 of string that represent the questions to be asked.
 
+**Example Question Trajectory:** <br />
+
+Below is a an example instance of the question trajectory found in `question_trajectory.pkl`:
+```
+('(Day 1) My thoughts were confusing.', "(Day 2) I heard things that weren't really there.", "(Day 2) I didn't want to be around others.")
+```
+
 <!---[^1]: The acquisition cost of all features will be 0.--->
 <!---[^2]: The acquisition cost of all cheap features will be 0 and expensive features will be predetermined.--->
