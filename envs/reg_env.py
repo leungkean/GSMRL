@@ -62,6 +62,7 @@ class Env(object):
             else:
                 return None, None
 
+    ############################ NEW ############################
     def _reg_reward(self, x, m, y, p, time):
         '''
         calculate the MSE as reward
@@ -73,7 +74,6 @@ class Env(object):
                                self.model.m: m,
                                self.model.y: y})
         """
-        ############################ NEW ############################
         rmse_acflow_list = self.model.run(self.model.rmse_list,
                     feed_dict={self.model.x: x,
                                self.model.b: m,
@@ -90,7 +90,6 @@ class Env(object):
         rmse_policy = np.zeros(x.shape[0])
         for i in range(x.shape[0]):
             rmse_policy[i] = rmse_policy_list[time[i]][i]
-        ############################ NEW ############################
 
         rmse = np.minimum(rmse_acflow, rmse_policy)
         
@@ -118,7 +117,6 @@ class Env(object):
 
         return ig
 
-    ############################ NEW ############################
     def step(self, action, prediction, time):
         empty = action == -1
         terminal = np.logical_and(action == self.terminal_act, time == self.hps.window-1)
