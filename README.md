@@ -165,7 +165,7 @@ In this case, we initialize the prior p(z) such that only cheap features are acq
 
 ### Results
 
-The following files are in `results`.
+The following files are in `results/window[..]/psych[..]`.
 
 - `evaluate`: <br /> There are two `.pkl` files, `test.pkl` and `train.pkl`, which are dictionaries that contain the rewards and state transitions over all episodes.
   - `transitions`: <br /> Represents the accumulation of the masks over time steps of an episode. Thus, if a feature has a larger value in the `transitions` array, then it was selected earlier than a feature with a smaller value.
