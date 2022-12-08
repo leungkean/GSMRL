@@ -110,7 +110,7 @@ The `baselines` folder contains both the linear least squares and neural network
 
 You can train your own model by the scripts provided below.
 
-### Cube
+<!---### Cube
 
 - Train the ACflow model
 
@@ -134,16 +134,18 @@ python scripts/train_model.py --cfg_file=./exp/acflow/molecule_20/params.json
 - Train the PPO Policy
 ``` bash
 python scripts/train_agent.py --cfg_file=./exp/ppo/molecule_20/params.json
-```
+```--->
 
-### Solvent (Regression)
+### Regression
 
-Same as in `Cube` dataset except for these differences:
+<!---Same as in `Cube` dataset except for these differences:--->
 
 We will be using the ACflow Regression model and use the regression environment to train the agent using PPO.
 
 - Train the ACflow model:
-Same as before
+```
+python scripts/train_model.py --cfg_file=./exp/acflow/[dataset]/params.json
+```
 
 - Train the PPO Policy:
 ``` bash
