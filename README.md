@@ -20,6 +20,9 @@ Download your training data into the data folder. You need to convert the data f
 <br />
 You need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
+**Note:** In specifying the parameters in the `params.json` file, a `window` parameter must be included to specify the number of days
+are in the time window.
+
 #### Psychology Dataset
 
 The file [`clean_data.ipynb`](https://github.com/leungkean/GSMRL/blob/main/preprocess/clean_data.ipynb)
