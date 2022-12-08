@@ -137,9 +137,7 @@ Same as in `Cube` dataset except for these differences:
 We will be using the ACflow Regression model and use the regression environment to train the agent using PPO.
 
 - Train the ACflow model:
-``` bash
-python scripts/train_model.py --cfg_file=./exp/acflow/[dataset]/params.json
-```
+Same as before
 
 - Train the PPO Policy:
 ``` bash
