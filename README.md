@@ -171,5 +171,11 @@ The following files are in `results`.
 - `learning_curve.png`: <br /> Graph of the rewards vs. episodes.
 - `train.log`: <br /> Log file while training
 
-[^1]: The acquisition cost of all features will be 0.
-[^2]: The acquisition cost of all cheap features will be 0 and expensive features will be predetermined.
+In the `evaluate` we also have a generated `question_trajectory.pkl` file.
+This is a pickle file containing a dictionary that specifies the trajectory of questions
+to ask before making a prediction.
+The keys are the index of the particular data instance and the values are the tuples
+of string that represent the questions to be asked.
+
+<!---[^1]: The acquisition cost of all features will be 0.--->
+<!---[^2]: The acquisition cost of all cheap features will be 0 and expensive features will be predetermined.--->
