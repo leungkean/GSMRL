@@ -94,6 +94,7 @@ class Env(object):
         rmse = np.minimum(rmse_acflow, rmse_policy)
         
         return -rmse
+    ############################ NEW ############################
 
     def _info_gain(self, x, old_m, m, y):
         '''
@@ -117,6 +118,7 @@ class Env(object):
 
         return ig
 
+    ############################ NEW ############################
     def step(self, action, prediction, time):
         empty = action == -1
         terminal = np.logical_and(action == self.terminal_act, time == self.hps.window-1)
