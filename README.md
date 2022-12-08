@@ -168,7 +168,11 @@ In this case, we initialize the prior p(z) such that only cheap features are acq
 The following files are in `results`.
 
 - `evaluate`: <br /> There are two `.pkl` files, `test.pkl` and `train.pkl`, which are dictionaries that contain the rewards and state transitions over all episodes.
-  - `transitions`: <br /> The `transitions` represent the accumulation of the masks over time steps of an episode. Thus, if a feature has a larger value in the `transitions` array, then it was selected earlier than a feature with a smaller value.
+  - `transitions`: <br /> Represents the accumulation of the masks over time steps of an episode. Thus, if a feature has a larger value in the `transitions` array, then it was selected earlier than a feature with a smaller value.
+  - `intermediate RMSE`: <br /> Represents the loss of the intermediate prediction.
+  - `episode reward`: <br /> Represents the total episode reward.
+  - `rmse acflow`: <br /> Represents the loss in final prediction using ACFlow as the regressor.
+  - `rmse policy`: <br /> Represents the loss in final prediction using the agent's policy as the regressor.
 - `weights`: <br /> Folder that contains the weights for the MDP agent for reference.
 - `params.json`: <br /> Configuration file to train the MDP agent.
 - `learning_curve.png`: <br /> Graph of the rewards vs. episodes.
