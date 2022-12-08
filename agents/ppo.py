@@ -498,6 +498,7 @@ class PPOPolicy(object):
         num_batches = 0
         while True: # iterate over dataset
             num_batches += 1
+            print(f'Evaluate Batch: {num_batches}')
             s, m = self.env.reset(loop=False, init=init)
             self.time = np.zeros(s.shape[0], np.int)
             init = False
@@ -528,8 +529,6 @@ class PPOPolicy(object):
             eval_dict = self.env.evaluate(s, m, p)
             for k, v in eval_dict.items():
                 metrics[k].append(v)
-
-            self.time = np.zeros(s.shape[0], np.int)
 
         # concat metrics
         average_metrics = defaultdict(float)

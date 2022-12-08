@@ -82,7 +82,7 @@ class Env(object):
 
         rmse_acflow = np.zeros(x.shape[0])
         for i in range(x.shape[0]):
-            rmse_acflow[i] = rmse_acflow_list[time[i]][i]
+            rmse_acflow[i] = np.sqrt(1/(self.hps.n_target//self.hps.window)) * rmse_acflow_list[time[i]][i]
 
         window_size = self.hps.n_target//self.hps.window
         rmse_policy_list = [np.sqrt(np.mean(np.square(p[:, i*window_size:(i+1)*window_size] - y[:, i*window_size:(i+1)*window_size]), axis=1)) for i in range(self.hps.window)]
@@ -154,7 +154,7 @@ class Env(object):
             m = self.m[normal] 
             a = action[normal] 
             old_m = m.copy() 
-            assert np.all(old_m[np.arange(len(a)), a] == 0) 
+            #assert np.all(old_m[np.arange(len(a)), a] == 0) 
             m[np.arange(len(a)), a] = 1. 
             self.m[normal] = m.copy() # explicitly update m 
             acquisition_cost = self.cost[a] 
