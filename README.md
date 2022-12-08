@@ -20,6 +20,12 @@ Download your training data into the data folder. You need to convert the data f
 <br />
 You need to change the path for each dataset in `datasets` folder accordingly, in datasets folder, there is a corresponding file for each dataset that parse the data to fit the Tensorflow model.
 
+#### Psychology Dataset
+
+The file [`clean_data.ipynb`](https://github.com/leungkean/GSMRL/blob/main/preprocess/clean_data.ipynb)
+is used to properly combine the data and structure it as input for the GSMRL model.
+Also the complete dataset is also given [here](https://github.com/leungkean/GSMRL/blob/main/preprocess/Daily%20Diary%20Long%20Form.csv).
+
 ## Generalizing GSMRL for Time Labeled Data
 
 The psychology dataset (found in `data/psych_GSMRL.pkl`) is a dataset used to study the
