@@ -29,6 +29,10 @@ The file [`clean_data.ipynb`](https://github.com/leungkean/GSMRL/blob/main/prepr
 is used to properly clean the data of empty cells and structure it as input for the GSMRL model.
 Also the complete dataset is also given [here](https://github.com/leungkean/GSMRL/blob/main/preprocess/Daily%20Diary%20Long%20Form.csv).
 
+In `data` we have 2 pickle files:
+- `psych_GSMRL.pkl`: Preprocessed psychology dataset for window of 2 days.
+- `psych_GSMRL2.pkl`: Preprocessed psychology dataset for window of 3 days.
+
 ## Generalizing GSMRL for Time Labeled Data
 
 The psychology dataset (found in `data/psych_GSMRL.pkl`) is a dataset used to study the
