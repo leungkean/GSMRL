@@ -167,30 +167,28 @@ In this case, we initialize the prior p(z) such that only cheap features are acq
 
 The following files are in `results/window[..]/psych[..]`.
 
-- `evaluate`: <br /> There are two `.pkl` files, `test.pkl` and `train.pkl`, which are dictionaries that contain the rewards and state transitions over all episodes.
-  - `transitions`: <br /> Represents the accumulation of the masks over time steps of an episode. Thus, if a feature has a larger value in the `transitions` array, then it was selected earlier than a feature with a smaller value.
-  - `intermediate RMSE`: <br /> Represents the loss of the intermediate prediction.
-  - `episode reward`: <br /> Represents the total episode reward.
-  - `rmse acflow`: <br /> Represents the loss in final prediction using ACFlow as the regressor.
-  - `rmse policy`: <br /> Represents the loss in final prediction using the agent's policy as the regressor.
+- `evaluate`: 
+  - `freq.png`: <br />
+    - Bar graph of the frequency of questions asked before making a prediction.
+  - `question_trajectory.pkl`: <br />
+    - Pickle file that contains a dictionary that specifies the trajectory of questions
+      to ask before making a prediction. The keys are the index of the particular data instance 
+      and the values are the tuples of string that represent the questions to be asked.
+    - Below is a an example instance of the question trajectory found in `question_trajectory.pkl`:
+      ```
+      ('(Day 1) My thoughts were confusing.', "(Day 2) I heard things that weren't really there.", "(Day 2) I didn't want to be around others.")
+      ```
+  - There are two `.pkl` files, `test.pkl` and `train.pkl`, which are dictionaries that contain the rewards and state transitions over all episodes.
+    - `transitions`: <br /> Represents the accumulation of the masks over time steps of an episode. Thus, if a feature has a larger value in the `transitions` array, then it was selected earlier than a feature with a smaller value.
+    - `intermediate RMSE`: <br /> Represents the loss of the intermediate prediction.
+    - `episode reward`: <br /> Represents the total episode reward.
+    - `rmse acflow`: <br /> Represents the loss in final prediction using ACFlow as the regressor.
+    - `rmse policy`: <br /> Represents the loss in final prediction using the agent's policy as the regressor.
+  
 - `weights`: <br /> Folder that contains the weights for the MDP agent for reference.
 - `params.json`: <br /> Configuration file to train the MDP agent.
 - `learning_curve.png`: <br /> Graph of the rewards vs. episodes.
 - `train.log`: <br /> Log file while training
-
-In the `evaluate` we have a generated `question_trajectory.pkl` and `freq.png` file.
-The `question_trajectory.pkl` contains a dictionary that specifies the trajectory of questions
-to ask before making a prediction.
-The keys are the index of the particular data instance and the values are the tuples
-of string that represent the questions to be asked.
-`freq.png` shows a bar graph of the frequency of questions asked before making a prediction.
-
-**Example Question Trajectory:** <br />
-
-Below is a an example instance of the question trajectory found in `question_trajectory.pkl`:
-```
-('(Day 1) My thoughts were confusing.', "(Day 2) I heard things that weren't really there.", "(Day 2) I didn't want to be around others.")
-```
 
 <!---[^1]: The acquisition cost of all features will be 0.--->
 <!---[^2]: The acquisition cost of all cheap features will be 0 and expensive features will be predetermined.--->
