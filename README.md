@@ -178,11 +178,12 @@ The following files are in `results/window[..]/psych[..]`.
 - `learning_curve.png`: <br /> Graph of the rewards vs. episodes.
 - `train.log`: <br /> Log file while training
 
-In the `evaluate` we also have a generated `question_trajectory.pkl` file.
-This is a pickle file containing a dictionary that specifies the trajectory of questions
+In the `evaluate` we have a generated `question_trajectory.pkl` and `freq.png` file.
+The `question_trajectory.pkl` contains a dictionary that specifies the trajectory of questions
 to ask before making a prediction.
 The keys are the index of the particular data instance and the values are the tuples
 of string that represent the questions to be asked.
+`freq.png` shows a bar graph of the frequency of questions asked before making a prediction.
 
 **Example Question Trajectory:** <br />
 
