@@ -73,8 +73,7 @@ for i in range(window):
         time_question.append(f'(Day {i+1}) ' + question)
 
 time_question = tuple(time_question)
-dataset_index = [5]
-test = {}
+dataset_index = [1,2,3,4]
 
 for ind in dataset_index:
     result_dir = f'./window{window}/psych{ind}/evaluate/'
@@ -93,7 +92,7 @@ for ind in dataset_index:
                 break
             # Check to see if agent chose invalid action
             if int(time_question[j][5]) < prev_time:
-                print(f"ERROR at instance {j}") 
+                print(f"ERROR at instance {j} for psych{ind}") 
 
             traj[i].append(time_question[j]) 
             prev_time = int(time_question[j][5])
@@ -103,4 +102,3 @@ for ind in dataset_index:
     with open(result_dir + 'question_trajectory.pkl','wb') as f:
         pickle.dump(traj,f)
 
-    test = traj
