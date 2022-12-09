@@ -67,17 +67,17 @@ acquisition process and prediction of the current day in question.
 [`acflow_regressor.py`](https://github.com/leungkean/GSMRL/blob/main/models/acflow_regressor.py) 
 was modified such that not only is the RMSE (root-mean squared error) for a single data instance given, 
 but the RMSE for all days in a single data instance are also provided.
-The RMSE for all days in the time window is given in [`rmse_list`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/models/acflow_regressor.py#L59).
+The RMSE for all days in the time window is given in [`rmse_list`](https://github.com/leungkean/GSMRL/blob/23b3de85a1de634fec0fac3a01489507a6dcadba/models/acflow_regressor.py#L59).
 2. The main python file to train the RL agent, [`ppo.py`](https://github.com/leungkean/GSMRL/blob/main/agents/ppo.py)
-is modified such that the function [`act`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/agents/ppo.py#L56)
+is modified such that the function [`act`](https://github.com/leungkean/GSMRL/blob/23b3de85a1de634fec0fac3a01489507a6dcadba/agents/ppo.py#L56)
 that determines which action to take only allows features from the current day to be acquired.
 Only when the agent decides to take make a prediction for the current day does it allow the acquisition
 of features for the next day. The acquisition process stops when all target variables are predicted.
 Furthermore, I have included a small function to update the time that determines which time window
-the agent is currently in called [`update_time`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/agents/ppo.py#L106).
+the agent is currently in called [`update_time`](https://github.com/leungkean/GSMRL/blob/23b3de85a1de634fec0fac3a01489507a6dcadba/agents/ppo.py#L106).
 3. The regression environment found in [`reg_env.py`](https://github.com/leungkean/GSMRL/blob/main/envs/reg_env.py)
-has been modified so that the [`step`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/envs/reg_env.py#L116)
-function allows for intermediate prediction and the prediction reward function [`_reg_reward`](https://github.com/leungkean/GSMRL/blob/c8df40124162eec1d475d7d902d9df446f4dfa17/envs/reg_env.py#L65)
+has been modified so that the [`step`](https://github.com/leungkean/GSMRL/blob/23b3de85a1de634fec0fac3a01489507a6dcadba/envs/reg_env.py#L122)
+function allows for intermediate prediction and the prediction reward function [`_reg_reward`](https://github.com/leungkean/GSMRL/blob/23b3de85a1de634fec0fac3a01489507a6dcadba/envs/reg_env.py#L66)
 has been modified to only give RMSE for the particular day.
 
 <!---#### Nested Cross-Validation
