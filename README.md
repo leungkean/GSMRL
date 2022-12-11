@@ -38,7 +38,7 @@ In `data` we have 2 pickle files:
 The psychology dataset (found in `data/psych_GSMRL.pkl`) is a dataset used to study the
 short-term stability and fluctuation of personality pathology. 
 The dataset contains collected 30 daily ratings of manifestations of personality pathology (DPDS)
-rom 116 individuals over the course of 102 consecutive days.
+from 116 individuals over the course of 102 consecutive days.
 The 30 DPDS ratings were then aggregated using multilayer factor analysis (MFA) and model fit statistics to create 9 daily domain scale.
 Scores of each domain scale are used as the target variable y in the AFA regression problem.
 
