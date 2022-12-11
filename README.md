@@ -169,7 +169,7 @@ In this case, we initialize the prior p(z) such that only cheap features are acq
 
 ### Results
 
-The overall RMSE and number of acquisitions for each window size are summarized in `results/window[..]/summary.txt`.
+The overall RMSE and number of acquisitions for each window size are summarized in `results/summary.txt`.
 
 The following files are in `results/window[..]/psych[..]`.
 
