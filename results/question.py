@@ -1,7 +1,7 @@
 import pickle
 import numpy as np
 
-window = 2
+window = 3
 
 question_base = []
 
@@ -73,7 +73,7 @@ for i in range(window):
         time_question.append(f'(Day {i+1}) ' + question)
 
 time_question = tuple(time_question)
-dataset_index = [1,2,3,4]
+dataset_index = [1,2,3]
 
 for ind in dataset_index:
     result_dir = f'./window{window}/psych{ind}/evaluate/'
